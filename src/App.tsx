@@ -25,10 +25,32 @@ import {
   Linkedin,
   Monitor,
   Send,
-  LayoutDashboard
+  LayoutDashboard,
+  Share2,
+  Volume2,
+  CheckCircle2
 } from 'lucide-react';
 import { cn } from './lib/utils';
 import { Pomodoro } from './components/Pomodoro';
+import { InfiniteMarquee } from './components/InfiniteMarquee';
+
+const FloatingSticker = ({ children, className, delay = 0 }: { children: React.ReactNode, className?: string, delay?: number }) => (
+  <motion.div
+    animate={{ 
+      y: [0, -20, 0],
+      rotate: [0, 5, -5, 0]
+    }}
+    transition={{ 
+      duration: 5, 
+      repeat: Infinity, 
+      delay,
+      ease: "easeInOut"
+    }}
+    className={cn("absolute pointer-events-none z-0 opacity-10 md:opacity-20", className)}
+  >
+    {children}
+  </motion.div>
+);
 import { Roadmap } from './components/Roadmap';
 import { Tasks } from './components/Tasks';
 import { Chat } from './components/Chat';
@@ -37,6 +59,7 @@ type Page = 'home' | 'contribute' | 'team' | 'pricing' | 'contact' | 'app';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
+  const [activeContributionTab, setActiveContributionTab] = useState('Developers');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -149,39 +172,58 @@ export default function App() {
               className="overflow-hidden"
             >
               {/* Hero Section */}
-              <section className="px-6 md:px-12 py-20 md:py-32 relative">
-                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                  <div className="space-y-10 relative z-10 text-center lg:text-left">
+              <section className="px-6 md:px-12 py-16 md:py-24 relative">
+                <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                  <div className="space-y-8 relative z-10 text-center lg:text-left">
                     <motion.div 
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-brand-mint border-2 border-brand-dark rounded-full text-brand-dark text-xs font-black uppercase tracking-widest brutal-shadow-sm"
+                      className="inline-flex items-center gap-2 px-3 py-1.5 bg-brand-mint border-2 border-brand-dark rounded-full text-brand-dark text-[10px] font-black uppercase tracking-widest brutal-shadow-sm"
                     >
-                      <Zap size={14} fill="currentColor" />
+                      <Zap size={12} fill="currentColor" />
                       <span>The #1 Study Platform</span>
                     </motion.div>
-                    <h1 className="text-6xl md:text-8xl font-black leading-[0.9] tracking-tighter text-brand-dark">
+                    <motion.h1 
+                      initial={{ opacity: 0, x: -50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.8, ease: "easeOut" }}
+                      className="text-5xl md:text-7xl font-black leading-[0.9] tracking-tighter text-brand-dark"
+                    >
                       STUDY <span className="text-brand-secondary italic">SMARTER</span>, <br/>
-                      NOT <span className="bg-white px-3 border-4 border-brand-dark inline-block rotate-[-2deg]">HARDER.</span>
-                    </h1>
-                    <p className="text-xl md:text-2xl font-bold text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                      NOT <motion.span 
+                        animate={{ rotate: [-2, 2, -2] }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                        className="bg-white px-3 border-4 border-brand-dark inline-block"
+                      >
+                        HARDER.
+                      </motion.span>
+                    </motion.h1>
+                    <p className="text-lg md:text-xl font-bold text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
                       Hyper-charge your learning with interactive roadmaps, focused pomodoro sprints, and a study buddy that never sleeps.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                       <button 
                         onClick={() => handleNav('app')}
-                        className="px-8 py-5 bg-brand-dark text-brand-primary rounded-2xl font-black text-xl border-4 border-brand-dark brutal-shadow hover:translate-y-[-4px] active:translate-y-0 transition-all flex items-center justify-center gap-3 uppercase tracking-tighter"
+                        className="px-6 py-4 bg-brand-dark text-brand-primary rounded-2xl font-black text-lg border-4 border-brand-dark brutal-shadow hover:translate-y-[-4px] active:translate-y-0 transition-all flex items-center justify-center gap-3 uppercase tracking-tighter"
                       >
                         Start Learning Free <ChevronRight strokeWidth={4} />
                       </button>
-                      <button className="px-8 py-5 bg-white text-brand-dark rounded-2xl font-black text-xl border-4 border-brand-dark brutal-shadow-sm hover:translate-y-[-4px] active:translate-y-0 transition-all uppercase tracking-tighter">
+                      <button className="px-6 py-4 bg-white text-brand-dark rounded-2xl font-black text-lg border-4 border-brand-dark brutal-shadow-sm hover:translate-y-[-4px] active:translate-y-0 transition-all uppercase tracking-tighter">
                         Watch Demo
                       </button>
                     </div>
                   </div>
 
                   <div className="relative">
-                    <div className="w-full aspect-square bg-brand-primary rounded-[64px] border-8 border-brand-dark shadow-[16px_16px_0px_#2D3436] rotate-3 overflow-hidden">
+                    {/* Floating Decorative Elements */}
+                    <FloatingSticker className="top-0 right-0 -translate-y-full" delay={0}>
+                      <Sparkles size={60} className="text-brand-primary" strokeWidth={3} />
+                    </FloatingSticker>
+                    <FloatingSticker className="-bottom-16 -left-16" delay={1.5}>
+                      <GraduationCap size={100} className="text-brand-secondary" strokeWidth={3} />
+                    </FloatingSticker>
+
+                    <div className="w-full aspect-square bg-brand-primary rounded-[48px] border-4 border-brand-dark shadow-[8px_8px_0px_#2D3436] rotate-3 overflow-hidden relative z-10">
                        <div className="p-8 space-y-6">
                          <div className="brutal-card bg-white p-6 rotate-[-2deg]">
                            <div className="flex gap-4 items-center">
@@ -204,17 +246,14 @@ export default function App() {
                          </div>
                        </div>
                     </div>
-                    {/* Floating Icons */}
-                    <motion.div 
-                      animate={{ y: [0, -20, 0] }}
-                      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                      className="absolute -top-10 -right-10 w-24 h-24 bg-brand-accent border-4 border-brand-dark rounded-3xl brutal-shadow flex items-center justify-center text-4xl rotate-12"
-                    >
-                      🚀
-                    </motion.div>
                   </div>
                 </div>
               </section>
+
+              {/* Decorative Marquee */}
+              <div className="-rotate-1 mt-10 mb-10 w-[120%] -ml-[10%]">
+                <InfiniteMarquee text="STUDY • PLAN • REPEAT" speed={20} />
+              </div>
 
               {/* Stats Section */}
               <section className="bg-brand-dark py-20 overflow-hidden relative">
@@ -243,58 +282,154 @@ export default function App() {
 
               {/* Features Section */}
               <section className="px-6 md:px-12 py-32 bg-white">
-                <div className="max-w-7xl mx-auto space-y-24">
+                <div className="max-w-7xl mx-auto space-y-24 relative">
+                  <FloatingSticker className="top-1/4 right-0" delay={2}>
+                    <Code size={100} className="text-brand-mint" strokeWidth={3} />
+                  </FloatingSticker>
+                  <FloatingSticker className="bottom-1/4 left-0" delay={0.5}>
+                    <Heart size={80} className="text-brand-accent" strokeWidth={3} />
+                  </FloatingSticker>
+
                   <div className="text-center max-w-3xl mx-auto space-y-6">
                     <h2 className="text-5xl md:text-6xl font-black uppercase tracking-tighter">Everything you need to <br/> <span className="text-brand-primary">OWN</span> your studies</h2>
                     <p className="text-xl font-bold text-slate-500">We stripped away the clutter and focused on what actually works: Focus, Structure, and Support.</p>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
                     <div className="brutal-card p-10 bg-brand-bg border-brand-primary border-4 space-y-6">
                       <div className="w-16 h-16 bg-brand-primary rounded-2xl border-4 border-brand-dark flex items-center justify-center">
                         <MapIcon size={32} strokeWidth={3} className="text-brand-dark" />
                       </div>
-                      <h3 className="text-2xl font-black uppercase tracking-tighter">AI Roadmaps</h3>
-                      <p className="font-bold text-slate-600 leading-relaxed">Instantly architect a 5-step master plan for any subject from Quantum Physics to Baking.</p>
+                      <h3 className="text-2xl font-black uppercase tracking-tighter">Roadmaps</h3>
+                      <p className="font-bold text-slate-600 leading-relaxed">Instantly architect a 5-step master plan for any subject you want to master.</p>
+                    </div>
+
+                    <div className="brutal-card p-10 bg-brand-bg border-brand-mint border-4 space-y-6">
+                      <div className="w-16 h-16 bg-brand-mint rounded-2xl border-4 border-brand-dark flex items-center justify-center text-brand-dark">
+                        <Monitor size={32} strokeWidth={3} />
+                      </div>
+                      <h3 className="text-2xl font-black uppercase tracking-tighter">Study Guide</h3>
+                      <p className="font-bold text-slate-600 leading-relaxed">Structured guides that break down complex topics into digestible learning bites.</p>
                     </div>
 
                     <div className="brutal-card p-10 bg-brand-bg border-brand-secondary border-4 space-y-6">
                       <div className="w-16 h-16 bg-brand-secondary rounded-2xl border-4 border-brand-dark flex items-center justify-center text-white">
-                        <Timer size={32} strokeWidth={3} />
+                        <Sparkles size={32} strokeWidth={3} />
                       </div>
-                      <h3 className="text-2xl font-black uppercase tracking-tighter">Brutal Focus</h3>
-                      <p className="font-bold text-slate-600 leading-relaxed">A hyper-visual Pomodoro engine designed to keep you in the flow state longer.</p>
+                      <h3 className="text-2xl font-black uppercase tracking-tighter">AI Assistant Tutor</h3>
+                      <p className="font-bold text-slate-600 leading-relaxed">Your personal tutor ready to quiz you or explain complex theories 24/7.</p>
                     </div>
 
                     <div className="brutal-card p-10 bg-brand-bg border-brand-accent border-4 space-y-6">
                       <div className="w-16 h-16 bg-brand-accent rounded-2xl border-4 border-brand-dark flex items-center justify-center text-white">
-                        <MessageCircle size={32} strokeWidth={3} />
+                        <LayoutDashboard size={32} strokeWidth={3} />
                       </div>
-                      <h3 className="text-2xl font-black uppercase tracking-tighter">Study Buddy</h3>
-                      <p className="font-bold text-slate-600 leading-relaxed">Your personal AI tutor ready to quiz you or explain complex theories 24/7.</p>
+                      <h3 className="text-2xl font-black uppercase tracking-tighter">Smart Scheduler</h3>
+                      <p className="font-bold text-slate-600 leading-relaxed">Automatically organize your study sessions around your life's peak performance hours.</p>
                     </div>
+                  </div>
+
+                  <div className="brutal-card p-12 bg-white border-brand-dark border-4 mt-12 overflow-hidden shadow-[8px_8px_0px_#2D3436] hover:translate-y-[-4px] transition-all">
+                    <motion.h3 
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      className="text-3xl font-black uppercase tracking-tighter mb-12 text-center"
+                    >
+                      WE OFFER MORE FEATURES
+                    </motion.h3>
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                      {[
+                        { label: 'Protected Time', icon: <Timer size={20} />, desc: "Set periods where focus is un-interrupted.", color: "#55EFC4" },
+                        { label: 'Schedule Upload', icon: <Monitor size={20} />, desc: "Auto-sync your classes and deadlines.", color: "#81ECEC" },
+                        { label: 'Module Upload', icon: <Sparkles size={20} />, desc: "Turn PDF notes into study materials.", color: "#A29BFE" },
+                        { label: 'Study Packs', icon: <Heart size={20} />, desc: "Collaborate on shared resource sets.", color: "#FAB1A0" },
+                        { label: 'Custom Themes', icon: <Zap size={20} />, desc: "Make your dashboard truly yours.", color: "#74B9FF" },
+                        { label: 'Challenges', icon: <Star size={20} />, desc: "Compete with friends to stay focused.", color: "#FFEE58" }
+                      ].map((feat, idx) => (
+                        <motion.div 
+                          key={feat.label}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: idx * 0.05 }}
+                          whileHover={{ scale: 1.05, rotate: idx % 2 === 0 ? 2 : -2, backgroundColor: feat.color }}
+                          whileTap={{ scale: 0.95, borderColor: '#2D3436' }}
+                          viewport={{ once: true }}
+                          className="flex flex-col items-center gap-3 p-4 bg-brand-bg border-4 border-brand-dark rounded-2xl brutal-shadow-sm transition-colors cursor-pointer group"
+                        >
+                          <div className="p-2 bg-white border-2 border-brand-dark rounded-xl group-hover:rotate-12 transition-transform">
+                            {feat.icon}
+                          </div>
+                          <div className="text-center space-y-1">
+                            <span className="text-[10px] font-black uppercase tracking-tighter block">{feat.label}</span>
+                            <p className="text-[8px] font-bold text-slate-500 leading-tight opacity-0 group-hover:opacity-100 transition-opacity">{feat.desc}</p>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="rotate-2 mb-20 w-[120%] -ml-[10%]">
+                    <InfiniteMarquee text="FOCUS • LEARN • SUCCEED" speed={25} reverse />
+                  </div>
+
+                  <div className="mt-20 max-w-7xl mx-auto mb-20 text-center relative px-6 py-20 bg-brand-secondary/5 border-4 border-dashed border-brand-dark/10 rounded-[64px]">
+                    <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #2D3436 2px, transparent 0)', backgroundSize: '24px 24px' }} />
+                    <motion.div 
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      whileHover={{ scale: 1.01 }}
+                      viewport={{ once: true }}
+                      className="p-12 md:p-16 brutal-card bg-brand-mint border-4 border-brand-dark inline-block max-w-4xl shadow-[16px_16px_0px_#2D3436] relative z-10"
+                    >
+                      <p className="text-4xl md:text-5xl font-black italic mb-8 leading-[1.1] text-brand-dark tracking-tighter">
+                        “Be productive enough to move forward, but gentle enough to keep going— because a burnt-out mind builds nothing that lasts.”
+                      </p>
+                      <div className="flex items-center justify-center gap-6">
+                        <div className="h-1 w-16 bg-brand-dark" />
+                        <p className="text-lg font-black uppercase tracking-[0.2em]">— StudyYa Philosophy</p>
+                        <div className="h-1 w-16 bg-brand-dark" />
+                      </div>
+                    </motion.div>
                   </div>
                 </div>
               </section>
 
               {/* Marquee Section */}
-              <section className="py-12 bg-white border-y-4 border-brand-dark overflow-hidden whitespace-nowrap">
-                <motion.div 
-                  animate={{ x: [0, -1000] }}
-                  transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                  className="flex gap-20 items-center"
-                >
-                  {Array.from({ length: 10 }).map((_, i) => (
-                    <div key={i} className="flex items-center gap-8">
-                       <span className="text-4xl font-black uppercase tracking-[0.2em]">Learn Faster</span>
-                       <div className="w-4 h-4 bg-brand-primary rounded-full border-2 border-brand-dark" />
-                       <span className="text-4xl font-black uppercase tracking-[0.2em] text-brand-secondary">Focus Better</span>
-                       <div className="w-4 h-4 bg-brand-secondary rounded-full border-2 border-brand-dark" />
-                       <span className="text-4xl font-black uppercase tracking-[0.2em] text-brand-mint">Build More</span>
-                       <div className="w-4 h-4 bg-brand-mint rounded-full border-2 border-brand-dark" />
-                    </div>
-                  ))}
-                </motion.div>
+              <section className="py-12 bg-white">
+                <InfiniteMarquee text="LEARN FASTER • FOCUS BETTER • BUILD MORE" speed={15} reverse className="bg-brand-mint/20" />
+              </section>
+
+              {/* FAQ Section */}
+              <section className="px-6 md:px-12 py-32 bg-brand-bg">
+                <div className="max-w-4xl mx-auto space-y-16">
+                  <div className="text-center space-y-4">
+                    <h2 className="text-5xl md:text-6xl font-black uppercase tracking-tighter">Frequently Asked <span className="text-brand-secondary">Questions</span></h2>
+                    <p className="text-xl font-bold text-slate-500">Everything you need to know about StudyYa</p>
+                  </div>
+
+                  <div className="space-y-6">
+                    {[
+                      { 
+                        q: "Is StudyYa free?", 
+                        a: "Yes, StudyYa is completely free. However, StudyYa also offers a monthly subscription for those who want a huge variety of features and to maximize the true power of StudyYa." 
+                      },
+                      { 
+                        q: "What is protected time and why should I care?", 
+                        a: "StudyYa's smart scheduling develops schedules based on subtasks within a goal or project. Protected time ensures certain timeframes are never touched by the system, allowing uninterrupted focus." 
+                      },
+                      { 
+                        q: "Can I really upload my class modules?", 
+                        a: "Yes! With the premium plan, you can upload your class modules and StudyYa will generate an interface with resources and study materials based on them." 
+                      },
+                      { 
+                        q: "Is my data safe?", 
+                        a: "Absolutely. StudyYa follows strict ethical standards and ensures your data is never misused. It is only used to improve the application and enhance your experience." 
+                      }
+                    ].map((faq, idx) => (
+                      <FAQItem key={idx} question={faq.q} answer={faq.a} />
+                    ))}
+                  </div>
+                </div>
               </section>
             </motion.div>
           )}
@@ -305,43 +440,161 @@ export default function App() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
-              className="max-w-7xl mx-auto px-6 md:px-12 py-32 space-y-20"
+              className="max-w-6xl mx-auto px-6 md:px-12 py-20 space-y-16"
             >
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div className="space-y-8">
-                  <h2 className="text-6xl md:text-8xl font-black uppercase tracking-tighter italic">BUILD THE <br/> <span className="bg-brand-mint px-4 border-4 border-brand-dark text-brand-dark inline-block not-italic">FUTURE</span></h2>
-                  <p className="text-2xl font-bold text-slate-600 leading-relaxed">
+                <div className="space-y-6">
+                  <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter italic">BUILD THE <br/> <span className="bg-brand-mint px-4 border-4 border-brand-dark text-brand-dark inline-block not-italic">FUTURE</span></h2>
+                  <p className="text-lg font-bold text-slate-600 leading-relaxed">
                     StudyYa is an open-source movement. We're building the infrastructure for the next generation of genius. Join us.
                   </p>
-                  <div className="flex flex-wrap gap-6 pt-4">
-                    <button className="brutal-btn bg-brand-dark flex items-center gap-3">
-                      <Github size={24} /> STAR ON GITHUB
+                  <div className="flex flex-wrap gap-4 pt-2">
+                    <button className="brutal-btn bg-brand-dark text-white flex items-center gap-3 !px-6 !py-3 !text-lg">
+                      <Github size={20} /> STAR ON GITHUB
                     </button>
-                    <button className="brutal-btn bg-white text-brand-dark flex items-center gap-3">
-                      <Globe size={24} /> JOIN DISCORD
+                    <button className="brutal-btn bg-white text-brand-dark flex items-center gap-3 !px-6 !py-3 !text-lg">
+                      <Globe size={20} /> JOIN DISCORD
                     </button>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-6">
-                  <div className="brutal-card p-8 bg-brand-primary space-y-4">
-                    <Code className="text-brand-dark" size={32} strokeWidth={3} />
-                    <h3 className="text-xl font-black uppercase">DEVELOPERS</h3>
-                    <p className="text-xs font-bold opacity-80 uppercase tracking-widest">Build core modules and AI integrations</p>
+                  {[
+                    { id: 'Developers', icon: <Code size={28} />, color: '#FFD23F', label: 'DEVELOPERS', desc: 'Build core modules' },
+                    { id: 'Designers', icon: <Users size={28} />, color: '#FF7EB3', label: 'DESIGNERS', desc: 'Shape the vision' },
+                    { id: 'Supporters', icon: <Heart size={28} />, color: '#A29BFE', label: 'SUPPORTERS', desc: 'Spread the word' },
+                    { id: 'Experts', icon: <Zap size={28} />, color: '#7AF1A7', label: 'EXPERTS', desc: 'Share wisdom' }
+                  ].map((role) => (
+                    <motion.div 
+                      key={role.id}
+                      whileHover={{ scale: 1.05, rotate: role.id === 'Developers' || role.id === 'Experts' ? -2 : 2, backgroundColor: role.color }}
+                      onClick={() => setActiveContributionTab(role.id as any)}
+                      className={cn(
+                        "brutal-card p-6 space-y-3 cursor-pointer transition-all bg-white shadow-[4px_4px_0px_var(--color-brand-dark)]",
+                        activeContributionTab === role.id && "ring-4 ring-brand-dark/10"
+                      )}
+                      animate={{ backgroundColor: activeContributionTab === role.id ? role.color : '#FFFFFF' }}
+                    >
+                      <div className="text-brand-dark">{role.icon}</div>
+                      <h3 className="text-lg font-black uppercase text-brand-dark">
+                        {role.label}
+                      </h3>
+                      <p className="text-[10px] font-bold opacity-80 uppercase tracking-widest leading-tight">{role.desc}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Contribution Guides */}
+              <div className="space-y-8">
+                <div className="flex flex-wrap justify-center gap-6 md:gap-12 border-b-2 border-brand-dark/10 pb-6">
+                  {[
+                    { id: 'Developers', color: 'bg-brand-primary' },
+                    { id: 'Designers', color: 'bg-brand-secondary' },
+                    { id: 'Supporters', color: 'bg-brand-accent' },
+                    { id: 'Experts', color: 'bg-brand-mint' }
+                  ].map(tab => (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveContributionTab(tab.id as any)}
+                      className={cn(
+                        "px-8 py-3 rounded-full font-black text-xl transition-all duration-300",
+                        activeContributionTab === tab.id 
+                          ? `${tab.color} text-brand-dark shadow-[4px_4px_0px_rgba(0,0,0,1)]` 
+                          : "text-slate-400 hover:text-brand-dark"
+                      )}
+                    >
+                      {tab.id}
+                    </button>
+                  ))}
+                </div>
+
+                <motion.div
+                  key={activeContributionTab}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="max-w-3xl mx-auto brutal-card bg-white p-8 space-y-8 shadow-[8px_8px_0px_var(--color-brand-dark)]"
+                >
+                  <div className="space-y-6">
+                    {(activeContributionTab === 'Developers' ? [
+                      "Clone the repository from GitHub",
+                      "Install dependencies and run accurately",
+                      "Explore the codebase & architecture",
+                      "Pick an issue or feature to work on",
+                      "Submit a pull request for review"
+                    ] : activeContributionTab === 'Designers' ? [
+                      "Review current UI/UX layout",
+                      "Identify areas for improvement",
+                      "Create wireframes or prototypes",
+                      "Collaborate for implementation"
+                    ] : activeContributionTab === 'Supporters' ? [
+                      "Follow us on social media",
+                      "Share StudyYa with classmates",
+                      "Create content (blog/video)",
+                      "Join Discord & stay active",
+                      "Participate in challenges"
+                    ] : [
+                      "Review study frameworks",
+                      "Submit proven methods",
+                      "Peer-review contributions",
+                      "Host a focus masterclass",
+                      "Shape the future roadmap"
+                    ]).map((step, i) => (
+                      <div key={i} className="flex items-center gap-4 group">
+                        <div className={cn(
+                          "w-10 h-10 border-2 border-brand-dark rounded-full flex items-center justify-center font-black text-lg shrink-0 group-hover:rotate-12 transition-transform shadow-[2px_2px_0px_#000]",
+                          activeContributionTab === 'Developers' ? 'bg-brand-primary' :
+                          activeContributionTab === 'Designers' ? 'bg-brand-secondary' :
+                          activeContributionTab === 'Supporters' ? 'bg-brand-accent' : 'bg-brand-mint'
+                        )}>
+                          {i + 1}
+                        </div>
+                        <p className="text-base md:text-lg font-bold text-slate-700">{step}</p>
+                      </div>
+                    ))}
                   </div>
-                  <div className="brutal-card p-8 bg-brand-secondary space-y-4">
-                    <Users className="text-white" size={32} strokeWidth={3} />
-                    <h3 className="text-xl font-black uppercase text-white">MODERATORS</h3>
-                    <p className="text-xs font-bold text-white/80 uppercase tracking-widest">Help our student community grow</p>
-                  </div>
-                  <div className="brutal-card p-8 bg-brand-accent space-y-4">
-                    <Heart className="text-white" size={32} strokeWidth={3} />
-                    <h3 className="text-xl font-black uppercase text-white">SUPPORTERS</h3>
-                    <p className="text-xs font-bold text-white/80 uppercase tracking-widest">Spread the word and beta-test features</p>
-                  </div>
-                  <div className="brutal-card p-8 bg-white border-brand-dark space-y-4">
-                    <Zap className="text-brand-primary" size={32} strokeWidth={3} />
-                    <h3 className="text-xl font-black uppercase">EXPERTS</h3>
-                    <p className="text-xs font-bold opacity-80 uppercase tracking-widest">Contribute validated study frameworks</p>
+                </motion.div>
+              </div>
+
+              {/* Current Opportunities */}
+              <div className="pt-10 space-y-8">
+                <div className="bg-slate-50/50 rounded-[48px] p-8 md:p-12 border-2 border-brand-dark/5 max-w-6xl mx-auto shadow-inner">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div className="space-y-6">
+                      <h3 className="text-3xl font-black text-brand-dark tracking-tighter uppercase italic">Current Opportunities</h3>
+                      <div className="space-y-3">
+                        {[
+                          "Improve onboarding experience",
+                          "Enhance AI tutor responses",
+                          "Design better scheduling UI",
+                          "Contribute educational content",
+                          "Help test and report bugs"
+                        ].map((item, idx) => (
+                          <motion.div 
+                            key={idx}
+                            initial={{ opacity: 0, x: -10 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ delay: idx * 0.1 }}
+                            whileHover={{ scale: 1.02, x: 5 }}
+                            className="flex items-center gap-3 p-3 bg-white border-2 border-brand-dark rounded-xl shadow-[3px_3px_0px_var(--color-brand-dark)] transition-all cursor-default group"
+                          >
+                            <div className="w-8 h-8 rounded-full border-2 border-brand-dark flex items-center justify-center bg-white shrink-0 group-hover:bg-brand-primary transition-colors">
+                              <CheckCircle2 size={16} className="text-brand-dark" strokeWidth={3} />
+                            </div>
+                            <span className="text-lg font-bold text-brand-dark tracking-tight">{item}</span>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="flex justify-center items-center">
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        className="w-full max-w-[480px] aspect-square rounded-[32px] overflow-hidden border-4 border-brand-dark shadow-[12px_12px_0px_var(--color-brand-dark)]"
+                      >
+                        <img src="/team.jpg" alt="Team" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                      </motion.div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -356,27 +609,45 @@ export default function App() {
               exit={{ opacity: 0, scale: 0.95 }}
               className="max-w-7xl mx-auto px-6 md:px-12 py-32 space-y-24"
             >
-              <div className="text-center space-y-6">
+              <div className="text-center space-y-8 max-w-3xl mx-auto">
                 <h2 className="text-6xl md:text-8xl font-black uppercase tracking-tighter">THE <span className="bg-brand-primary px-3 border-4 border-brand-dark inline-block rotate-[-2deg]">BRAINS</span> BEHIND IT</h2>
-                <p className="text-xl font-bold text-slate-500 max-w-2xl mx-auto">We're a collective of dropouts, dreamers, and data scientists obsessed with human performance.</p>
+                <div className="space-y-6">
+                  <h3 className="text-3xl font-black uppercase tracking-tight">Built by a Team That Understands Students</h3>
+                  <p className="text-xl font-bold text-slate-500 leading-relaxed">
+                    StudyYa is crafted by a passionate team dedicated to improving how students learn, organize, and succeed. We combine technology with real academic struggles to create a system that truly works in real life—not just in theory.
+                  </p>
+                  <p className="text-xl font-bold text-slate-500 leading-relaxed">
+                    From smart scheduling to AI-assisted learning, every feature is designed with one goal in mind: helping you stay productive without burning out.
+                  </p>
+                </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
                 {[
-                  { name: 'AXEL V.', role: 'Vision Founder', bio: 'Former cognitive research assistant. Loves brutalist architecture and heavy coffee.', color: 'bg-brand-mint' },
-                  { name: 'MIA K.', role: 'AI Architect', bio: 'Neural network wizard. Believes machines can teach humans how to feel again.', color: 'bg-brand-secondary' },
-                  { name: 'SORA L.', role: 'Lead Design', bio: 'Converting complex workflows into visual playgrounds since 2018.', color: 'bg-brand-blue' }
-                ].map(member => (
-                  <div key={member.name} className="group cursor-pointer">
+                  { name: 'Romeo Selwyn Villar', role: 'CEO & Founder', bio: 'Visionary leader driving the mission to revolutionize student productivity.', color: 'bg-brand-mint', image: '/sel.jpg' },
+                  { name: 'Charlene Calamba', role: 'Chief Operating Officer', bio: 'The engine behind StudyYa, ensuring every gear turns perfectly for our users.', color: 'bg-brand-secondary', image: '/chao.jpg' },
+                  { name: 'Alex Aparece', role: 'Chief Technology Officer', bio: 'The architect of our technology, building tools that make complex tasks feel simple.', color: 'bg-brand-blue', image: '/alex.jpg' }
+                ].map((member, idx) => (
+                  <motion.div 
+                    key={member.name} 
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.1 }}
+                    viewport={{ once: true }}
+                    className="group cursor-pointer"
+                  >
                     <div className={cn("aspect-[4/5] rounded-[48px] border-8 border-brand-dark shadow-[12px_12px_0px_var(--color-brand-dark)] mb-8 transition-all group-hover:-translate-y-4 overflow-hidden relative", member.color)}>
-                       <div className="absolute inset-0 flex items-center justify-center text-8xl grayscale opacity-20 filter contrast-125">
-                         👤
-                       </div>
+                       <img 
+                        src={member.image} 
+                        alt={member.name}
+                        referrerPolicy="no-referrer"
+                        className="absolute inset-0 w-full h-full object-cover filter contrast-110 grayscale group-hover:grayscale-0 transition-all duration-500"
+                       />
                     </div>
-                    <h3 className="text-3xl font-black uppercase tracking-tighter mb-1">{member.name}</h3>
+                    <h2 className="text-3xl font-black uppercase tracking-tighter mb-1 leading-none">{member.name}</h2>
                     <p className="text-sm font-black text-brand-secondary uppercase tracking-[0.2em] mb-4">{member.role}</p>
                     <p className="font-bold text-slate-500 leading-relaxed">{member.bio}</p>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </motion.div>
@@ -395,58 +666,47 @@ export default function App() {
                 <p className="text-xl font-bold text-slate-500">Free forever for students. Pro for legends.</p>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-stretch">
                 {/* Free Tier */}
-                <div className="brutal-card p-10 bg-white space-y-10 group hover:border-brand-primary transition-all">
+                <motion.div 
+                  whileHover={{ y: -10, scale: 1.02 }}
+                  className="brutal-card p-10 bg-white space-y-10 group hover:border-brand-primary transition-all flex flex-col cursor-pointer"
+                >
                   <div className="space-y-4">
-                    <h3 className="text-3xl font-black uppercase">STUDENT</h3>
-                    <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">For the lone wolf</p>
+                    <h3 className="text-3xl font-black uppercase tracking-tighter">Free Tier</h3>
+                    <p className="text-slate-500 font-bold uppercase tracking-widest text-xs tracking-tighter">FOR THE LONE STARTER</p>
                   </div>
-                  <div className="text-6xl font-black tracking-tighter">$0 <span className="text-xl text-slate-300 font-bold">/lifetime</span></div>
-                  <ul className="space-y-4">
-                    {['Unlimited Tasks', '3 AI Roadmaps/Month', 'Standard Buddy Access', 'Pomodoro Timer'].map(f => (
+                  <div className="text-6xl font-black tracking-tighter">₱0 <span className="text-xl text-slate-300 font-bold">/month</span></div>
+                  <ul className="space-y-4 border-t-2 border-slate-100 pt-8 flex-1">
+                    {['Curated Interest-Based Resources', 'Smart Scheduler', '2 Limits of Protected Time'].map(f => (
                       <li key={f} className="flex items-center gap-3 font-bold text-slate-600">
-                        <Star size={18} fill="currentColor" className="text-brand-primary" /> {f}
+                        <CheckSquare size={18} className="text-brand-mint" /> {f}
                       </li>
                     ))}
                   </ul>
-                  <button className="w-full py-4 bg-brand-bg border-4 border-brand-dark rounded-xl font-black uppercase tracking-widest brutal-shadow-sm hover:bg-brand-primary transition-all">Join Free</button>
-                </div>
+                  <button className="w-full py-4 bg-brand-bg border-4 border-brand-dark rounded-xl font-black uppercase tracking-widest brutal-shadow-sm hover:bg-brand-primary transition-all mt-auto">Choose plan</button>
+                </motion.div>
 
-                {/* Pro Tier */}
-                <div className="brutal-card p-10 bg-brand-primary scale-110 relative z-10 border-brand-dark shadow-[16px_16px_0px_#2D3436] space-y-10">
-                  <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-brand-dark text-brand-primary px-6 py-2 rounded-full font-black uppercase tracking-widest text-xs border-2 border-brand-dark">Most Popular</div>
+                {/* Premium Tier */}
+                <motion.div 
+                  whileHover={{ y: -10, scale: 1.02 }}
+                  className="brutal-card p-10 bg-white border-brand-dark border-4 shadow-[16px_16px_0px_#2D3436] space-y-10 relative flex flex-col cursor-pointer z-10"
+                >
+                  <div className="absolute -top-6 right-6 bg-brand-blue text-white px-6 py-2 rounded-full font-black uppercase tracking-widest text-xs border-2 border-brand-dark">Most Popular</div>
                   <div className="space-y-4">
-                    <h3 className="text-3xl font-black uppercase">LEGEND</h3>
-                    <p className="text-brand-dark/60 font-bold uppercase tracking-widest text-xs">Full neural unlock</p>
+                    <h3 className="text-3xl font-black uppercase tracking-tighter">Premium Tier</h3>
+                    <p className="text-slate-500 font-bold uppercase tracking-widest text-xs tracking-tighter">FULL POWER UNLOCKED</p>
                   </div>
-                  <div className="text-6xl font-black tracking-tighter">$12 <span className="text-xl text-brand-dark/40 font-bold">/month</span></div>
-                  <ul className="space-y-4">
-                    {['Everything in Student', 'Unlimited AI Roadmaps', 'Advanced Buddy Logic', 'Custom AI Personas', 'Dark Mode & Custom Themes', 'Global XP Leaderboards'].map(f => (
-                      <li key={f} className="flex items-center gap-3 font-black text-brand-dark">
-                        <Zap size={18} fill="currentColor" className="text-brand-secondary" /> {f}
+                  <div className="text-6xl font-black tracking-tighter">₱249 <span className="text-xl text-slate-300 font-bold">/month</span></div>
+                  <ul className="space-y-4 border-t-2 border-slate-100 pt-8 flex-1">
+                    {['AI Assistant Tutor', 'Class Schedule Upload', 'Exclusive Class Module Upload', 'Access Exclusive Study Packs', 'Unlimited Protected Time'].map(f => (
+                      <li key={f} className="flex items-center gap-3 font-bold text-brand-dark">
+                        <CheckSquare size={18} className="text-brand-secondary" /> {f}
                       </li>
                     ))}
                   </ul>
-                  <button className="w-full py-4 bg-brand-dark text-brand-primary rounded-xl font-black uppercase tracking-widest border-4 border-brand-dark shadow-[4px_4px_0px_white] hover:translate-y-[-2px] transition-all">Go Legend</button>
-                </div>
-
-                {/* Enterprise Tier */}
-                <div className="brutal-card p-10 bg-white space-y-10 group hover:border-brand-secondary transition-all">
-                  <div className="space-y-4">
-                    <h3 className="text-3xl font-black uppercase">SYNDICATE</h3>
-                    <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">For teams & classes</p>
-                  </div>
-                  <div className="text-6xl font-black tracking-tighter">$49 <span className="text-xl text-slate-300 font-bold">/month</span></div>
-                  <ul className="space-y-4">
-                    {['Up to 10 Legend Accounts', 'Shared Roadmap Library', 'Group Study Channels', 'Admin Dashboard', 'API Access Beta'].map(f => (
-                      <li key={f} className="flex items-center gap-3 font-bold text-slate-600">
-                        <Users size={18} className="text-brand-secondary" /> {f}
-                      </li>
-                    ))}
-                  </ul>
-                  <button className="w-full py-4 bg-brand-bg border-4 border-brand-dark rounded-xl font-black uppercase tracking-widest brutal-shadow-sm hover:bg-brand-secondary transition-all">Start Syndicate</button>
-                </div>
+                  <button className="w-full py-4 bg-brand-dark text-white rounded-xl font-black uppercase tracking-widest border-4 border-brand-dark shadow-[4px_4px_0px_white] hover:translate-y-[-2px] transition-all mt-auto">Choose plan</button>
+                </motion.div>
               </div>
             </motion.div>
           )}
@@ -472,16 +732,16 @@ export default function App() {
                       </div>
                       <div>
                         <p className="font-black uppercase tracking-widest text-xs text-slate-400">Email Us</p>
-                        <p className="text-xl font-black">support@studyya.io</p>
+                        <p className="text-xl font-black">studyya@email.com</p>
                       </div>
                     </div>
                     <div className="flex gap-6 items-center">
                       <div className="w-16 h-16 bg-white border-4 border-brand-dark rounded-2xl flex items-center justify-center text-brand-dark brutal-shadow-sm">
-                        <Globe size={32} />
+                        <MapIcon size={32} />
                       </div>
                       <div>
-                        <p className="font-black uppercase tracking-widest text-xs text-slate-400">HQ Location</p>
-                        <p className="text-xl font-black">Metaverse, Node 42</p>
+                        <p className="font-black uppercase tracking-widest text-xs text-slate-400">Location</p>
+                        <p className="text-xl font-black">Panabo City</p>
                       </div>
                     </div>
                   </div>
@@ -490,11 +750,11 @@ export default function App() {
                 <div className="brutal-card p-12 bg-white space-y-8">
                   <div className="space-y-4">
                     <label className="text-sm font-black uppercase tracking-widest opacity-60">Full Name</label>
-                    <input type="text" className="brutal-input w-full p-4 font-bold" placeholder="Axel Rose" />
+                    <input type="text" className="brutal-input w-full p-4 font-bold" placeholder="Name" />
                   </div>
                   <div className="space-y-4">
                     <label className="text-sm font-black uppercase tracking-widest opacity-60">Email Address</label>
-                    <input type="email" className="brutal-input w-full p-4 font-bold" placeholder="axel@rock.com" />
+                    <input type="email" className="brutal-input w-full p-4 font-bold" placeholder="Email Address" />
                   </div>
                   <div className="space-y-4">
                     <label className="text-sm font-black uppercase tracking-widest opacity-60">Your Message</label>
@@ -535,8 +795,8 @@ export default function App() {
       </main>
 
       {/* Persistence Footer */}
-      <footer className="bg-brand-bg border-t-8 border-brand-dark py-24 px-6 md:px-12">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
+      <footer className="bg-brand-bg border-t-8 border-brand-dark pt-8 pb-12 px-6 md:px-12">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div className="space-y-8">
              <div className="flex items-center gap-3">
                <div className="p-2 bg-brand-secondary rounded-xl border-2 border-brand-dark brutal-shadow-sm">
@@ -555,7 +815,7 @@ export default function App() {
           </div>
 
           {[
-            { title: 'Platform', links: ['Features', 'Roadmaps', 'Focus Engine', 'Study Buddy'] },
+            { title: 'Explore', links: ['Features', 'Roadmaps', 'Focus Engine', 'Study Buddy'] },
             { title: 'Company', links: ['Home', 'Team', 'Contribute', 'Careers'] },
             { title: 'Support', links: ['Documentation', 'Contact Us', 'Discord', 'Status'] }
           ].map(col => (
@@ -569,7 +829,7 @@ export default function App() {
             </div>
           ))}
         </div>
-        <div className="max-w-7xl mx-auto pt-24 mt-24 border-t-2 border-slate-100 flex flex-col md:flex-row justify-between items-center gap-8">
+        <div className="max-w-7xl mx-auto pt-8 mt-8 border-t-2 border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4">
            <p className="text-xs font-black uppercase tracking-widest text-slate-400 italic">© 2026 STUDY YA UNIVERSE. DEPLOYED FROM THE FUTURE.</p>
            <div className="flex gap-12 text-xs font-black uppercase tracking-widest text-slate-400">
              <button className="hover:text-brand-dark transition-colors">Privacy</button>
@@ -584,45 +844,9 @@ export default function App() {
 
 // Extracted the tool content to a separate helper component for the "App" view
 function AppContent() {
-  const [activeTab, setActiveTab] = useState<any>('dashboard');
-
-  const navItems = [
-    { id: 'dashboard', icon: LayoutDashboard, label: 'Hub' },
-    { id: 'roadmap', icon: MapIcon, label: 'Roadmaps' },
-    { id: 'timer', icon: Timer, label: 'Focus' },
-    { id: 'tasks', icon: CheckSquare, label: 'Tasks' },
-    { id: 'chat', icon: MessageCircle, label: 'Buddy' },
-  ];
-
   return (
-    <div className="flex flex-col md:flex-row gap-8 min-h-[800px]">
-       <aside className="w-full md:w-64 space-y-4 sticky top-32 h-fit">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => setActiveTab(item.id)}
-              className={cn(
-                "w-full flex items-center gap-4 px-6 py-4 rounded-2xl font-black transition-all group border-2",
-                activeTab === item.id 
-                  ? "bg-brand-primary text-brand-dark border-brand-dark brutal-shadow-sm translate-x-2" 
-                  : "text-slate-400 border-transparent hover:bg-white hover:text-brand-dark"
-              )}
-            >
-              <item.icon size={24} className={cn(activeTab === item.id ? "text-brand-dark" : "group-hover:text-brand-dark")} />
-              <span className="uppercase tracking-tighter text-lg">{item.label}</span>
-            </button>
-          ))}
-       </aside>
-
-       <div className="flex-1">
-          <AnimatePresence mode="wait">
-            {activeTab === 'dashboard' && <DashboardView onNav={setActiveTab} />}
-            {activeTab === 'timer' && <motion.div key="t" initial={{opacity:0}} animate={{opacity:1}} className="flex justify-center py-12"><Pomodoro /></motion.div>}
-            {activeTab === 'roadmap' && <motion.div key="r" initial={{opacity:0}} animate={{opacity:1}}><Roadmap /></motion.div>}
-            {activeTab === 'tasks' && <motion.div key="ts" initial={{opacity:0}} animate={{opacity:1}}><Tasks /></motion.div>}
-            {activeTab === 'chat' && <motion.div key="c" initial={{opacity:0}} animate={{opacity:1}}><Chat /></motion.div>}
-          </AnimatePresence>
-       </div>
+    <div className="min-h-[600px] flex items-center justify-center">
+      <DashboardView onNav={() => {}} />
     </div>
   );
 }
@@ -692,18 +916,58 @@ function DashboardView({ onNav }: { onNav: (id: string) => void }) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {[
-          { label: 'BIOLOGY', icon: '🔬', color: 'bg-brand-mint', count: '12 Modules' },
-          { label: 'CALCULUS', icon: '📐', color: 'bg-brand-secondary', count: '8 Modules' },
-          { label: 'HISTORY', icon: '🌍', color: 'bg-brand-accent', count: '24 Modules' },
-          { label: 'CODING', icon: '💻', color: 'bg-brand-blue', count: '15 Modules' }
+          { label: 'BIOLOGY', icon: '🔬', color: 'bg-brand-mint', count: 'Comprehensive guide to living organisms', pressColor: '#FFD93D' },
+          { label: 'CALCULUS', icon: '📐', color: 'bg-brand-secondary', count: 'Mastering derivatives and integrals', pressColor: '#6C5CE7' },
+          { label: 'HISTORY', icon: '🌍', color: 'bg-brand-accent', count: 'Timeline of major civilization events', pressColor: '#FF6B6B' },
+          { label: 'CODING', icon: '💻', color: 'bg-brand-blue', count: 'Logic building and syntax mastery', pressColor: '#55EFC4' }
         ].map(cat => (
-          <div key={cat.label} className={cn("p-8 brutal-card brutal-card-hover cursor-pointer", cat.color)}>
+          <motion.div 
+            key={cat.label} 
+            whileHover={{ y: -5 }}
+            whileTap={{ scale: 0.95, backgroundColor: cat.pressColor }}
+            className={cn("p-8 brutal-card brutal-card-hover cursor-pointer transition-colors duration-200", cat.color)}
+          >
             <div className="text-5xl mb-6">{cat.icon}</div>
             <h3 className="text-2xl font-black uppercase tracking-tighter mb-1">{cat.label}</h3>
-            <p className="text-xs font-black opacity-60 uppercase tracking-widest">{cat.count}</p>
-          </div>
+            <p className="text-xs font-black opacity-60 uppercase leading-snug">{cat.count}</p>
+          </motion.div>
         ))}
       </div>
     </motion.div>
+  );
+}
+
+function FAQItem({ question, answer }: { question: string, answer: string, key?: any }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="brutal-card bg-white border-2 border-brand-dark p-0 overflow-hidden shadow-[4px_4px_0px_#2D3436]">
+      <button 
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full p-6 flex justify-between items-center transition-colors hover:bg-brand-secondary/5"
+      >
+        <span className="text-xl font-black uppercase tracking-tighter text-left">{question}</span>
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          className="text-brand-secondary"
+        >
+          <ChevronRight size={24} strokeWidth={4} className="rotate-90" />
+        </motion.div>
+      </button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          >
+            <div className="p-6 pt-0 border-t-2 border-slate-100 font-bold text-slate-500 leading-relaxed">
+              {answer}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
