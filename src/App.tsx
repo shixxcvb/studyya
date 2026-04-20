@@ -170,9 +170,9 @@ export default function App() {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                       <button 
                         onClick={() => handleNav('app')}
-                        className="px-8 py-5 bg-brand-dark text-brand-primary rounded-2xl font-black text-xl border-4 border-brand-dark brutal-shadow hover:translate-y-[-4px] active:translate-y-0 transition-all flex items-center justify-center gap-3 uppercase tracking-tighter"
+                        className="px-8 py-5 bg-brand-dark text-brand-primary rounded-2xl font-black text-xl border-4 border-brand-dark brutal-shadow hover:translate-y-[-4px] active:translate-y-0 transition-all flex items-center justify-center gap-3 uppercase tracking-tighter group"
                       >
-                        Start Learning Free <ChevronRight strokeWidth={4} />
+                        Start Learning Free <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform" />
                       </button>
                       <button className="px-8 py-5 bg-white text-brand-dark rounded-2xl font-black text-xl border-4 border-brand-dark brutal-shadow-sm hover:translate-y-[-4px] active:translate-y-0 transition-all uppercase tracking-tighter">
                         Watch Demo
@@ -180,7 +180,12 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div className="relative">
+                  <motion.div 
+                    initial={{ opacity: 0, x: 50, rotate: 10 }}
+                    animate={{ opacity: 1, x: 0, rotate: 3 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="relative"
+                  >
                     <div className="w-full aspect-square bg-brand-primary rounded-[64px] border-8 border-brand-dark shadow-[16px_16px_0px_#2D3436] rotate-3 overflow-hidden">
                        <div className="p-8 space-y-6">
                          <div className="brutal-card bg-white p-6 rotate-[-2deg]">
@@ -212,7 +217,7 @@ export default function App() {
                     >
                       🚀
                     </motion.div>
-                  </div>
+                  </motion.div>
                 </div>
               </section>
 
@@ -226,53 +231,92 @@ export default function App() {
                   </div>
                 </div>
                 <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-wrap justify-center gap-12 md:gap-24 relative z-10">
-                  <div className="text-center">
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="text-center"
+                  >
                     <p className="text-6xl md:text-8xl font-black text-brand-primary tracking-tighter">50K+</p>
                     <p className="text-brand-bg uppercase font-black tracking-widest text-sm mt-2">Active Students</p>
-                  </div>
-                  <div className="text-center">
+                  </motion.div>
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 }}
+                    className="text-center"
+                  >
                     <p className="text-6xl md:text-8xl font-black text-brand-secondary tracking-tighter">12M+</p>
                     <p className="text-brand-bg uppercase font-black tracking-widest text-sm mt-2">XP Earned</p>
-                  </div>
-                  <div className="text-center">
+                  </motion.div>
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.2 }}
+                    className="text-center"
+                  >
                     <p className="text-6xl md:text-8xl font-black text-brand-mint tracking-tighter">200+</p>
                     <p className="text-brand-bg uppercase font-black tracking-widest text-sm mt-2">Roadmaps Built</p>
-                  </div>
+                  </motion.div>
                 </div>
               </section>
 
               {/* Features Section */}
               <section className="px-6 md:px-12 py-32 bg-white">
                 <div className="max-w-7xl mx-auto space-y-24">
-                  <div className="text-center max-w-3xl mx-auto space-y-6">
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    className="text-center max-w-3xl mx-auto space-y-6"
+                  >
                     <h2 className="text-5xl md:text-6xl font-black uppercase tracking-tighter">Everything you need to <br/> <span className="text-brand-primary">OWN</span> your studies</h2>
                     <p className="text-xl font-bold text-slate-500">We stripped away the clutter and focused on what actually works: Focus, Structure, and Support.</p>
-                  </div>
+                  </motion.div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                    <div className="brutal-card p-10 bg-brand-bg border-brand-primary border-4 space-y-6">
+                    <motion.div 
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      className="brutal-card p-10 bg-brand-bg border-brand-primary border-4 space-y-6 hover:-rotate-2 transition-transform cursor-default"
+                    >
                       <div className="w-16 h-16 bg-brand-primary rounded-2xl border-4 border-brand-dark flex items-center justify-center">
                         <MapIcon size={32} strokeWidth={3} className="text-brand-dark" />
                       </div>
                       <h3 className="text-2xl font-black uppercase tracking-tighter">AI Roadmaps</h3>
                       <p className="font-bold text-slate-600 leading-relaxed">Instantly architect a 5-step master plan for any subject from Quantum Physics to Baking.</p>
-                    </div>
+                    </motion.div>
 
-                    <div className="brutal-card p-10 bg-brand-bg border-brand-secondary border-4 space-y-6">
+                    <motion.div 
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.1 }}
+                      className="brutal-card p-10 bg-brand-bg border-brand-secondary border-4 space-y-6 hover:rotate-2 transition-transform cursor-default"
+                    >
                       <div className="w-16 h-16 bg-brand-secondary rounded-2xl border-4 border-brand-dark flex items-center justify-center text-white">
                         <Timer size={32} strokeWidth={3} />
                       </div>
                       <h3 className="text-2xl font-black uppercase tracking-tighter">Brutal Focus</h3>
                       <p className="font-bold text-slate-600 leading-relaxed">A hyper-visual Pomodoro engine designed to keep you in the flow state longer.</p>
-                    </div>
+                    </motion.div>
 
-                    <div className="brutal-card p-10 bg-brand-bg border-brand-accent border-4 space-y-6">
+                    <motion.div 
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.2 }}
+                      className="brutal-card p-10 bg-brand-bg border-brand-accent border-4 space-y-6 hover:-rotate-1 transition-transform cursor-default"
+                    >
                       <div className="w-16 h-16 bg-brand-accent rounded-2xl border-4 border-brand-dark flex items-center justify-center text-white">
                         <MessageCircle size={32} strokeWidth={3} />
                       </div>
                       <h3 className="text-2xl font-black uppercase tracking-tighter">Study Buddy</h3>
                       <p className="font-bold text-slate-600 leading-relaxed">Your personal AI tutor ready to quiz you or explain complex theories 24/7.</p>
-                    </div>
+                    </motion.div>
                   </div>
                 </div>
               </section>
@@ -294,6 +338,34 @@ export default function App() {
                        <div className="w-4 h-4 bg-brand-mint rounded-full border-2 border-brand-dark" />
                     </div>
                   ))}
+                </motion.div>
+              </section>
+
+              {/* built by a section */}
+              <section className="px-6 md:px-12 py-32 bg-brand-bg">
+                <motion.div 
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="max-w-7xl mx-auto rounded-[64px] border-8 border-brand-dark bg-brand-secondary p-12 md:p-24 relative overflow-hidden text-center md:text-left shadow-[24px_24px_0px_#2D3436]"
+                >
+                  <div className="relative z-10 space-y-12">
+                    <div className="inline-block px-6 py-2 bg-white border-4 border-brand-dark rounded-full text-brand-dark font-black uppercase tracking-widest rotate-3">
+                      THE ARCHITECT
+                    </div>
+                    <div className="space-y-6">
+                      <h2 className="text-5xl md:text-8xl font-black text-white tracking-tighter italic uppercase">BUILT BY A <br/> <span className="bg-brand-primary px-4 border-4 border-brand-dark text-brand-dark inline-block not-italic">STUDENT</span></h2>
+                      <p className="text-2xl md:text-3xl font-bold text-white max-w-2xl leading-relaxed">
+                        StudyYa was born from a single late-night study session. Built by <b>Charlene</b> with a mission to empower every student with the tools to dominate their curricula.
+                      </p>
+                    </div>
+                    <button className="brutal-btn bg-brand-dark text-brand-primary text-xl flex items-center gap-4 group">
+                      SUPPORT THE MISSION <Heart fill="currentColor" size={24} className="group-hover:scale-125 transition-transform" />
+                    </button>
+                  </div>
+                  {/* Decor */}
+                  <div className="absolute top-10 right-20 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
+                  <div className="absolute -bottom-20 -right-20 w-96 h-96 bg-brand-primary/20 rounded-full rotate-45" />
                 </motion.div>
               </section>
             </motion.div>
@@ -322,27 +394,31 @@ export default function App() {
                     </button>
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="brutal-card p-8 bg-brand-primary space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                  <motion.div 
+                    whileHover={{ y: -8, rotate: -2 }}
+                    className="brutal-card p-8 bg-brand-primary space-y-4"
+                  >
                     <Code className="text-brand-dark" size={32} strokeWidth={3} />
                     <h3 className="text-xl font-black uppercase">DEVELOPERS</h3>
                     <p className="text-xs font-bold opacity-80 uppercase tracking-widest">Build core modules and AI integrations</p>
-                  </div>
-                  <div className="brutal-card p-8 bg-brand-secondary space-y-4">
-                    <Users className="text-white" size={32} strokeWidth={3} />
-                    <h3 className="text-xl font-black uppercase text-white">MODERATORS</h3>
-                    <p className="text-xs font-bold text-white/80 uppercase tracking-widest">Help our student community grow</p>
-                  </div>
-                  <div className="brutal-card p-8 bg-brand-accent space-y-4">
-                    <Heart className="text-white" size={32} strokeWidth={3} />
-                    <h3 className="text-xl font-black uppercase text-white">SUPPORTERS</h3>
-                    <p className="text-xs font-bold text-white/80 uppercase tracking-widest">Spread the word and beta-test features</p>
-                  </div>
-                  <div className="brutal-card p-8 bg-white border-brand-dark space-y-4">
-                    <Zap className="text-brand-primary" size={32} strokeWidth={3} />
-                    <h3 className="text-xl font-black uppercase">EXPERTS</h3>
-                    <p className="text-xs font-bold opacity-80 uppercase tracking-widest">Contribute validated study frameworks</p>
-                  </div>
+                  </motion.div>
+                  <motion.div 
+                    whileHover={{ y: -8, rotate: 2 }}
+                    className="brutal-card p-8 bg-brand-secondary space-y-4"
+                  >
+                    <Star className="text-white" size={32} strokeWidth={3} />
+                    <h3 className="text-xl font-black uppercase text-white">DESIGNERS</h3>
+                    <p className="text-xs font-bold text-white/80 uppercase tracking-widest">Shape the visual future of learning</p>
+                  </motion.div>
+                  <motion.div 
+                    whileHover={{ y: -8, rotate: -1 }}
+                    className="brutal-card p-8 bg-brand-accent space-y-4"
+                  >
+                    <Monitor className="text-white" size={32} strokeWidth={3} />
+                    <h3 className="text-xl font-black uppercase text-white">CONTENT CREATORS</h3>
+                    <p className="text-xs font-bold text-white/80 uppercase tracking-widest">Create curricula and study guides</p>
+                  </motion.div>
                 </div>
               </div>
             </motion.div>
