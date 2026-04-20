@@ -70,7 +70,7 @@ export function Roadmap() {
           <button
             className="px-8 py-4 bg-brand-primary text-brand-dark rounded-2xl border-4 border-brand-dark brutal-shadow font-black text-base sm:text-lg cursor-default opacity-80 flex items-center justify-center gap-2"
           >
-            <Sparkles size={20} sm:size={24} />
+            <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
             <span>Generate</span>
           </button>
         </div>
@@ -87,7 +87,7 @@ export function Roadmap() {
           >
             <div className="flex items-center gap-3 text-brand-dark mb-4">
               <div className="p-3 bg-brand-secondary rounded-2xl border-2 border-brand-dark brutal-shadow-sm">
-                <BookOpen size={24} sm:size={28} className="text-white" />
+                <BookOpen className="text-white w-6 h-6 sm:w-7 sm:h-7" />
               </div>
               <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tighter">{roadmap.topic} Master Plan</h3>
             </div>
@@ -117,7 +117,7 @@ export function Roadmap() {
                     <div className="flex flex-wrap gap-2 sm:gap-3">
                       {step.resources.map((res, ridx) => (
                         <span key={ridx} className="flex items-center gap-2 px-3 py-1.5 sm:py-2 bg-brand-bg border-2 border-brand-dark rounded-xl text-slate-700 text-[10px] sm:text-sm font-bold">
-                          <ChevronRight size={14} sm:size={16} className="text-brand-secondary" />
+                          <ChevronRight className="text-brand-secondary w-3.5 h-3.5 sm:w-4 sm:h-4" />
                           {res}
                         </span>
                       ))}

@@ -52,33 +52,26 @@ export function Pomodoro() {
         animate={{ scale: 1, opacity: 1 }}
         className="relative flex items-center justify-center brutal-card p-6 sm:p-12 bg-white"
       >
-        <svg className="w-56 h-56 sm:w-64 sm:h-64 transform -rotate-90">
+        <svg viewBox="0 0 256 256" className="w-56 h-56 sm:w-64 sm:h-64 transform -rotate-90">
           <circle
-            cx="112"
-            cy="112"
-            r="104"
-            sm-cx="128"
-            sm-cy="128"
-            sm-r="120"
+            cx="128"
+            cy="128"
+            r="120"
             stroke="currentColor"
             strokeWidth="12"
             fill="transparent"
             className="text-slate-100"
           />
           <motion.circle
-            cx="112"
-            cy="112"
-            r="104"
-            sm-cx="128"
-            sm-cy="128"
-            sm-r="120"
+            cx="128"
+            cy="128"
+            r="120"
             stroke="currentColor"
             strokeWidth="12"
             fill="transparent"
-            strokeDasharray={653.45}
-            sm-strokeDasharray={753.98}
-            initial={{ strokeDashoffset: 653.45 }}
-            animate={{ strokeDashoffset: (progress / 100) * 653.45 }}
+            strokeDasharray="753.98"
+            initial={{ strokeDashoffset: 753.98 }}
+            animate={{ strokeDashoffset: (progress / 100) * 753.98 }}
             transition={{ duration: 1, ease: "linear" }}
             className={cn(
               "transition-colors duration-500",
@@ -105,7 +98,7 @@ export function Pomodoro() {
         <button
           className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white border-2 border-brand-dark brutal-shadow-sm text-brand-dark cursor-default flex items-center justify-center"
         >
-          <RotateCcw size={24} sm:size={28} />
+          <RotateCcw className="w-6 h-6 sm:w-7 sm:h-7" />
         </button>
         <button
           className={cn(
@@ -113,12 +106,12 @@ export function Pomodoro() {
             isActive ? "bg-brand-secondary" : "bg-brand-mint"
           )}
         >
-          {isActive ? <Pause size={36} sm:size={48} fill="currentColor" /> : <Play size={36} sm:size={48} className="ml-1 sm:ml-2" fill="currentColor" />}
+          {isActive ? <Pause className="w-9 h-9 sm:w-12 sm:h-12" fill="currentColor" /> : <Play className="w-9 h-9 sm:w-12 sm:h-12 ml-1 sm:ml-2" fill="currentColor" />}
         </button>
         <button
           className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white border-2 border-brand-dark brutal-shadow-sm text-brand-dark cursor-default flex items-center justify-center"
         >
-          {mode === 'work' ? <Coffee size={24} sm:size={28} /> : <BookOpen size={24} sm:size={28} />}
+          {mode === 'work' ? <Coffee className="w-6 h-6 sm:w-7 sm:h-7" /> : <BookOpen className="w-6 h-6 sm:w-7 sm:h-7" />}
         </button>
       </div>
 

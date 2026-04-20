@@ -61,7 +61,7 @@ export function Tasks() {
             type="button"
             className="w-14 h-14 sm:w-16 sm:h-16 bg-brand-secondary text-white rounded-2xl border-4 border-brand-dark brutal-shadow cursor-default flex items-center justify-center pt-1 shrink-0"
           >
-            <Plus size={28} sm:size={32} strokeWidth={3} />
+            <Plus className="w-7 h-7 sm:w-8 sm:h-8" strokeWidth={3} />
           </button>
         </form>
 
@@ -81,7 +81,7 @@ export function Tasks() {
                     task.completed ? "text-brand-mint" : "text-slate-300"
                   )}
                 >
-                  {task.completed ? <CheckCircle2 size={24} sm:size={32} strokeWidth={3} /> : <Circle size={24} sm:size={32} strokeWidth={3} />}
+                  {task.completed ? <CheckCircle2 className="w-6 h-6 sm:w-8 sm:h-8" strokeWidth={3} /> : <Circle className="w-6 h-6 sm:w-8 sm:h-8" strokeWidth={3} />}
                 </div>
 
                 <span className={cn(
@@ -92,7 +92,7 @@ export function Tasks() {
                 </span>
 
                 <div className="p-1 sm:p-2 text-slate-300">
-                  <Trash2 size={20} sm:size={24} />
+                  <Trash2 className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
               </div>
             ))}

@@ -46,7 +46,7 @@ export function Chat() {
     <div className="flex flex-col h-[500px] md:h-[600px] max-w-3xl mx-auto brutal-card overflow-hidden">
       <div className="p-4 sm:p-6 bg-brand-accent text-white flex items-center gap-3 sm:gap-4 border-b-4 border-brand-dark">
         <div className="p-2 sm:p-3 bg-brand-dark rounded-xl sm:rounded-2xl border-2 border-white shadow-[2px_2px_0px_white]">
-          <Bot size={20} sm:size={28} />
+          <Bot className="w-5 h-5 sm:w-7 sm:h-7" />
         </div>
         <div>
           <h3 className="text-lg sm:text-xl font-black uppercase tracking-tighter leading-tight">Study Buddy</h3>
@@ -70,7 +70,7 @@ export function Chat() {
                 "p-2 sm:p-3 rounded-xl sm:rounded-2xl border-2 border-brand-dark brutal-shadow-sm shrink-0",
                 m.role === 'user' ? "bg-brand-secondary text-white" : "bg-white text-brand-dark"
               )}>
-                {m.role === 'user' ? <User size={16} sm:size={20} /> : <Sparkles size={16} sm:size={20} />}
+                {m.role === 'user' ? <User className="w-4 h-4 sm:w-5 sm:h-5" /> : <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />}
               </div>
               <div className={cn(
                 "p-3 sm:p-5 rounded-[20px] sm:rounded-[24px] text-xs sm:text-sm font-bold leading-relaxed border-[3px] sm:border-4 border-brand-dark brutal-shadow-sm",
@@ -106,7 +106,7 @@ export function Chat() {
           <button
             className="w-12 h-12 sm:w-14 sm:h-14 bg-brand-secondary text-white rounded-2xl border-4 border-brand-dark brutal-shadow cursor-default flex items-center justify-center shrink-0"
           >
-            <Send size={20} sm:size={24} />
+            <Send className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
         </div>
       </div>
