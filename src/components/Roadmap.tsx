@@ -1,0 +1,162 @@
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { GoogleGenAI, Type } from "@google/genai";
+import { Sparkles, ArrowRight, CheckCircle2, ChevronRight, Loader2, BookOpen } from 'lucide-react';
+import { cn } from '../lib/utils';
+
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+
+interface RoadmapStep {
+  title: string;
+  description: string;
+  resources: string[];
+  duration: string;
+}
+
+interface RoadmapData {
+  topic: string;
+  steps: RoadmapStep[];
+}
+
+export function Roadmap() {
+  const [topic, setTopic] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [roadmap, setRoadmap] = useState<RoadmapData | null>(null);
+
+  const generateRoadmap = async () => {
+    if (!topic.trim()) return;
+    setLoading(true);
+    try {
+      const response = await ai.models.generateContent({
+        model: "gemini-3-flash-preview",
+        contents: `Create a comprehensive study roadmap for: ${topic}. 
+        Break it down into 5 logical steps. For each step, provide a title, detailed description, key resources/topics to cover, and estimated duration.`,
+        config: {
+          responseMimeType: "application/json",
+          responseSchema: {
+            type: Type.OBJECT,
+            properties: {
+              topic: { type: Type.STRING },
+              steps: {
+                type: Type.ARRAY,
+                items: {
+                  type: Type.OBJECT,
+                  properties: {
+                    title: { type: Type.STRING },
+                    description: { type: Type.STRING },
+                    resources: { type: Type.ARRAY, items: { type: Type.STRING } },
+                    duration: { type: Type.STRING }
+                  },
+                  required: ["title", "description", "resources", "duration"]
+                }
+              }
+            },
+            required: ["topic", "steps"]
+          }
+        }
+      });
+      
+      const data = JSON.parse(response.text);
+      setRoadmap(data);
+    } catch (error) {
+      console.error("Failed to generate roadmap:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="max-w-4xl mx-auto space-y-8">
+      <div className="flex flex-col space-y-4">
+        <h2 className="text-4xl font-black text-brand-dark tracking-tighter">Knowledge Roadmap</h2>
+        <p className="text-slate-500 font-bold">Enter a subject and let AI architect your learning path.</p>
+        
+        <div className="flex gap-4">
+          <input
+            type="text"
+            value={topic}
+            onChange={(e) => setTopic(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && generateRoadmap()}
+            placeholder="e.g. Quantum Computing, UI Design, Organic Chemistry..."
+            className="flex-1 brutal-input px-6 py-4 text-lg font-bold"
+          />
+          <button
+            onClick={generateRoadmap}
+            disabled={loading}
+            className="px-8 py-4 bg-brand-primary text-brand-dark rounded-2xl border-4 border-brand-dark brutal-shadow font-black text-lg hover:translate-y-[-4px] active:translate-y-[2px] transition-all disabled:opacity-50 flex items-center gap-2"
+          >
+            {loading ? <Loader2 className="animate-spin" size={24} /> : <Sparkles size={24} />}
+            <span>Generate</span>
+          </button>
+        </div>
+      </div>
+
+      <AnimatePresence mode="wait">
+        {roadmap ? (
+          <motion.div
+            key={roadmap.topic}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="space-y-8"
+          >
+            <div className="flex items-center gap-3 text-brand-dark mb-4">
+              <div className="p-3 bg-brand-secondary rounded-2xl border-2 border-brand-dark brutal-shadow-sm">
+                <BookOpen size={28} className="text-white" />
+              </div>
+              <h3 className="text-2xl font-black uppercase tracking-tighter">{roadmap.topic} Master Plan</h3>
+            </div>
+            
+            <div className="relative pl-12 border-l-4 border-brand-dark space-y-12 ml-6">
+              {roadmap.steps.map((step, idx) => (
+                <motion.div 
+                  key={idx}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: idx * 0.1 }}
+                  className="relative"
+                >
+                  <div className="absolute -left-[64px] top-4 w-12 h-12 rounded-2xl bg-white border-4 border-brand-dark brutal-shadow-sm flex items-center justify-center font-black text-xl">
+                    {idx + 1}
+                  </div>
+                  
+                  <div className="brutal-card p-8 group hover:border-brand-secondary transition-all">
+                    <div className="flex justify-between items-start mb-4">
+                      <h4 className="text-2xl font-black text-brand-dark">{step.title}</h4>
+                      <span className="px-4 py-2 bg-brand-mint text-brand-dark text-xs font-black rounded-xl border-2 border-brand-dark uppercase">
+                        {step.duration}
+                      </span>
+                    </div>
+                    <p className="text-slate-700 font-bold leading-relaxed mb-6">{step.description}</p>
+                    
+                    <div className="flex flex-wrap gap-3">
+                      {step.resources.map((res, ridx) => (
+                        <span key={ridx} className="flex items-center gap-2 px-3 py-2 bg-brand-bg border-2 border-brand-dark rounded-xl text-slate-700 text-sm font-bold">
+                          <ChevronRight size={16} className="text-brand-secondary" />
+                          {res}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        ) : loading ? (
+          <div className="flex flex-col items-center justify-center py-24 space-y-6">
+            <div className="relative">
+              <div className="w-24 h-24 border-8 border-brand-primary/30 rounded-[32px] animate-pulse" />
+              <Sparkles className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-brand-primary animate-bounce" size={40} />
+            </div>
+            <p className="text-brand-dark font-black text-xl animate-pulse uppercase tracking-widest">Architecting your roadmap...</p>
+          </div>
+        ) : (
+          <div className="text-center py-24 bg-white rounded-[40px] border-4 border-brand-dark shadow-[8px_8px_0px_var(--color-brand-dark)]">
+            <Sparkles className="mx-auto text-slate-200 mb-6" size={64} />
+            <p className="text-slate-400 font-black text-xl uppercase tracking-widest">Your future roadmap will appear here.</p>
+          </div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}

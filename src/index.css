@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  
+  --color-brand-primary: #FFD23F; /* Yellow */
+  --color-brand-secondary: #FF7EB3; /* Pink */
+  --color-brand-accent: #A29BFE; /* Purple */
+  --color-brand-mint: #7AF1A7; /* Mint */
+  --color-brand-blue: #74b9ff; /* Blue */
+  --color-brand-dark: #2D3436; /* Dark gray/black */
+  --color-brand-bg: #F7F3FF; /* Light Lavender */
+}
+
+@layer base {
+  body {
+    @apply bg-brand-bg text-brand-dark antialiased font-sans;
+  }
+}
+
+.brutal-card {
+  @apply bg-white border-4 border-brand-dark rounded-[32px] shadow-[8px_8px_0px_var(--color-brand-dark)] transition-transform;
+}
+
+.brutal-card-hover {
+  @apply hover:-translate-y-1 hover:translate-x-[-1px] active:translate-y-1 active:translate-x-1;
+}
+
+.brutal-shadow {
+  @apply shadow-[4px_4px_0px_var(--color-brand-dark)];
+}
+
+.brutal-shadow-sm {
+  @apply shadow-[2px_2px_0px_var(--color-brand-dark)];
+}
+
+.brutal-btn {
+  @apply px-8 py-4 bg-brand-dark text-white rounded-2xl font-black text-xl hover:translate-y-[-2px] active:translate-y-[2px] transition-transform border-2 border-brand-dark;
+}
+
+.brutal-input {
+  @apply bg-white border-4 border-brand-dark rounded-2xl outline-none transition-all;
+}
