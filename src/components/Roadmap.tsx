@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { GoogleGenAI, Type } from "@google/genai";
-import { Sparkles, ArrowRight, CheckCircle2, ChevronRight, Loader2, BookOpen } from 'lucide-react';
+import { Sparkles, BookOpen, ChevronRight, Loader2 } from 'lucide-react';
 import { cn } from '../lib/utils';
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+// AI logic removed for Demo Mode
 
 interface RoadmapStep {
   title: string;
@@ -26,50 +25,41 @@ export function Roadmap() {
   const generateRoadmap = async () => {
     if (!topic.trim()) return;
     setLoading(true);
-    try {
-      const response = await ai.models.generateContent({
-        model: "gemini-3-flash-preview",
-        contents: `Create a comprehensive study roadmap for: ${topic}. 
-        Break it down into 5 logical steps. For each step, provide a title, detailed description, key resources/topics to cover, and estimated duration.`,
-        config: {
-          responseMimeType: "application/json",
-          responseSchema: {
-            type: Type.OBJECT,
-            properties: {
-              topic: { type: Type.STRING },
-              steps: {
-                type: Type.ARRAY,
-                items: {
-                  type: Type.OBJECT,
-                  properties: {
-                    title: { type: Type.STRING },
-                    description: { type: Type.STRING },
-                    resources: { type: Type.ARRAY, items: { type: Type.STRING } },
-                    duration: { type: Type.STRING }
-                  },
-                  required: ["title", "description", "resources", "duration"]
-                }
-              }
-            },
-            required: ["topic", "steps"]
+    
+    // Mock generation for Demo Mode
+    setTimeout(() => {
+      setRoadmap({
+        topic: topic,
+        steps: [
+          {
+            title: "Foundations & core concepts",
+            description: `A deep dive into the basic principles of ${topic}. Understanding the history, key terminologies, and the overarching framework.`,
+            resources: ["Introductory Video", "Wikipedia Overview", "Key Terms Glossary"],
+            duration: "Week 1"
+          },
+          {
+            title: "Advanced mechanisms",
+            description: "Moving beyond the basics to understand how components interact within the system. This focuses on practical applications and logic.",
+            resources: ["Case Study #1", "Logic Diagrams", "Expert Webinar"],
+            duration: "Week 2"
+          },
+          {
+            title: "Mastery through practice",
+            description: "Solving real-world problems and applying theoretical knowledge. This stage is dedicated to active recall and implementation.",
+            resources: ["Problem Set A", "Interactive Sandbox", "GitHub Repo Template"],
+            duration: "Week 3-4"
           }
-        }
+        ]
       });
-      
-      const data = JSON.parse(response.text);
-      setRoadmap(data);
-    } catch (error) {
-      console.error("Failed to generate roadmap:", error);
-    } finally {
       setLoading(false);
-    }
+    }, 1500);
   };
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
       <div className="flex flex-col space-y-4">
         <h2 className="text-4xl font-black text-brand-dark tracking-tighter">Knowledge Roadmap</h2>
-        <p className="text-slate-500 font-bold">Enter a subject and let AI architect your learning path.</p>
+        <p className="text-slate-500 font-bold italic uppercase tracking-widest text-[10px]">Demo Mode: Standard Template Generation</p>
         
         <div className="flex gap-4">
           <input
@@ -77,7 +67,7 @@ export function Roadmap() {
             value={topic}
             onChange={(e) => setTopic(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && generateRoadmap()}
-            placeholder="e.g. Quantum Computing, UI Design, Organic Chemistry..."
+            placeholder="Search topic (e.g. Bio, Physics)..."
             className="flex-1 brutal-input px-6 py-4 text-lg font-bold"
           />
           <button

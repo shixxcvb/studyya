@@ -158,14 +158,14 @@ export default function App() {
                       className="inline-flex items-center gap-2 px-4 py-2 bg-brand-mint border-2 border-brand-dark rounded-full text-brand-dark text-xs font-black uppercase tracking-widest brutal-shadow-sm"
                     >
                       <Zap size={14} fill="currentColor" />
-                      <span>The #1 AI Study Platform</span>
+                      <span>The #1 Study Platform</span>
                     </motion.div>
                     <h1 className="text-6xl md:text-8xl font-black leading-[0.9] tracking-tighter text-brand-dark">
                       STUDY <span className="text-brand-secondary italic">SMARTER</span>, <br/>
                       NOT <span className="bg-white px-3 border-4 border-brand-dark inline-block rotate-[-2deg]">HARDER.</span>
                     </h1>
                     <p className="text-xl md:text-2xl font-bold text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                      Hyper-charge your learning with AI-generated roadmaps, focused pomodoro sprints, and a study buddy that never sleeps.
+                      Hyper-charge your learning with interactive roadmaps, focused pomodoro sprints, and a study buddy that never sleeps.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                       <button 
@@ -544,7 +544,7 @@ export default function App() {
                </div>
                <span className="text-2xl font-black tracking-tighter">STUDYYA</span>
              </div>
-             <p className="font-bold text-slate-500 leading-relaxed">The AI-powered command center for ambitious students who refuse to settle for average grades.</p>
+             <p className="font-bold text-slate-500 leading-relaxed">The high-performance command center for ambitious students who refuse to settle for average grades.</p>
              <div className="flex gap-4">
                {[Github, Twitter, Linkedin].map((Icon, i) => (
                  <button key={i} className="p-3 bg-white border-2 border-brand-dark rounded-xl brutal-shadow-sm hover:translate-y-[-2px] active:translate-y-0 transition-all">
@@ -555,7 +555,7 @@ export default function App() {
           </div>
 
           {[
-            { title: 'Platform', links: ['Features', 'AI Roadmaps', 'Focus Engine', 'Study Buddy'] },
+            { title: 'Platform', links: ['Features', 'Roadmaps', 'Focus Engine', 'Study Buddy'] },
             { title: 'Company', links: ['Home', 'Team', 'Contribute', 'Careers'] },
             { title: 'Support', links: ['Documentation', 'Contact Us', 'Discord', 'Status'] }
           ].map(col => (

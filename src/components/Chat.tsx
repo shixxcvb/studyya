@@ -1,10 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { GoogleGenAI } from "@google/genai";
 import { Send, User, Bot, Sparkles, Loader2 } from 'lucide-react';
 import { cn } from '../lib/utils';
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+// AI logic removed for Demo Mode
 
 interface Message {
   role: 'user' | 'assistant';
@@ -13,7 +12,7 @@ interface Message {
 
 export function Chat() {
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: "Hey! I'm your Study Buddy. Need help with a complex topic or need a quick quiz?" }
+    { role: 'assistant', content: "Hey! I'm your Study Buddy. (Demo Mode: AI is currently offline and no API key is required)." }
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -33,25 +32,14 @@ export function Chat() {
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
     setLoading(true);
 
-    try {
-      const chat = ai.chats.create({
-        model: "gemini-3-flash-preview",
-        config: {
-          systemInstruction: "You are 'Study Buddy', a helpful, concise, and encouraging AI tutor. Use markdown for formatting. Help students with explanations, study tips, and quiz questions."
-        }
-      });
-
-      const response = await chat.sendMessage({
-        message: userMessage
-      });
-
-      setMessages(prev => [...prev, { role: 'assistant', content: response.text || "Sorry, I'm a bit lost. Can you rephrase?" }]);
-    } catch (error) {
-      console.error("Chat error:", error);
-      setMessages(prev => [...prev, { role: 'assistant', content: "Something went wrong. My neural wires got crossed!" }]);
-    } finally {
+    // Mock response for demo mode
+    setTimeout(() => {
+      setMessages(prev => [...prev, { 
+        role: 'assistant', 
+        content: "I'm currently in demo mode to keep things simple. In the full version, I use Gemini AI to help you study! But for now, I'm just here to show you how the interface looks." 
+      }]);
       setLoading(false);
-    }
+    }, 1000);
   };
 
   return (
@@ -114,7 +102,7 @@ export function Chat() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-            placeholder="Ask me anything..."
+            placeholder="Type a message (Demo Mode)..."
             className="flex-1 brutal-input px-6 py-3 font-bold"
           />
           <button
