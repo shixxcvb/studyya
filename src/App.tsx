@@ -34,12 +34,6 @@ import { cn } from './lib/utils';
 import { Pomodoro } from './components/Pomodoro';
 import { InfiniteMarquee } from './components/InfiniteMarquee';
 
-// Import local assets for robust deployment
-import TeamImg from './team.jpg';
-import SelImg from './sel.jpg';
-import ChaoImg from './chao.jpg';
-import AlexImg from './alex.jpg';
-
 const FloatingSticker = ({ children, className, delay = 0 }: { children: React.ReactNode, className?: string, delay?: number }) => (
   <motion.div
     animate={{ 
@@ -598,7 +592,7 @@ export default function App() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         className="w-full max-w-[480px] aspect-square rounded-[32px] overflow-hidden border-4 border-brand-dark shadow-[12px_12px_0px_var(--color-brand-dark)]"
                       >
-                        <img src={TeamImg} alt="Team" className="w-full h-full object-cover" />
+                        <img src="/team.jpg" alt="Team" className="w-full h-full object-cover" />
                       </motion.div>
                     </div>
                   </div>
@@ -630,9 +624,9 @@ export default function App() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
                 {[
-                  { name: 'Romeo Selwyn Villar', role: 'CEO & Founder', bio: 'Visionary leader driving the mission to revolutionize student productivity.', color: 'bg-brand-mint', image: SelImg },
-                  { name: 'Charlene Calamba', role: 'Chief Operating Officer', bio: 'The engine behind StudyYa, ensuring every gear turns perfectly for our users.', color: 'bg-brand-secondary', image: ChaoImg },
-                  { name: 'Alex Aparece', role: 'Chief Technology Officer', bio: 'The architect of our technology, building tools that make complex tasks feel simple.', color: 'bg-brand-blue', image: AlexImg }
+                  { name: 'Romeo Selwyn Villar', role: 'CEO & Founder', bio: 'Visionary leader driving the mission to revolutionize student productivity.', color: 'bg-brand-mint', image: '/sel.jpg' },
+                  { name: 'Charlene Calamba', role: 'Chief Operating Officer', bio: 'The engine behind StudyYa, ensuring every gear turns perfectly for our users.', color: 'bg-brand-secondary', image: '/chao.jpg' },
+                  { name: 'Alex Aparece', role: 'Chief Technology Officer', bio: 'The architect of our technology, building tools that make complex tasks feel simple.', color: 'bg-brand-blue', image: '/alex.jpg' }
                 ].map((member, idx) => (
                   <motion.div 
                     key={member.name} 
