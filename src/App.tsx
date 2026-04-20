@@ -657,8 +657,7 @@ function DashboardView({ onNav }: { onNav: (id: string) => void }) {
             </p>
             <div className="flex flex-wrap gap-4 pt-4">
               <button 
-                onClick={() => onNav('roadmap')}
-                className="brutal-btn flex items-center gap-3 bg-brand-dark"
+                className="brutal-btn flex items-center gap-3 bg-brand-dark cursor-default opacity-80"
               >
                 BUILD ROADMAP <ArrowRight size={24} />
               </button>

@@ -51,47 +51,38 @@ export function Tasks() {
           </span>
         </div>
 
-        <form onSubmit={addTask} className="flex gap-4">
+        <form onSubmit={(e) => e.preventDefault()} className="flex gap-4">
           <input
             type="text"
-            value={newTask}
-            onChange={(e) => setNewTask(e.target.value)}
-            placeholder="Add a new goal..."
+            placeholder="Add a new goal (Demo Mode)..."
             className="flex-1 brutal-input px-6 py-4 font-bold text-lg"
           />
           <button
-            type="submit"
-            className="w-16 h-16 bg-brand-secondary text-white rounded-2xl border-4 border-brand-dark brutal-shadow hover:translate-y-[-4px] active:translate-y-[2px] transition-transform flex items-center justify-center pt-1"
+            type="button"
+            className="w-16 h-16 bg-brand-secondary/50 text-white rounded-2xl border-4 border-brand-dark brutal-shadow cursor-default flex items-center justify-center pt-1"
           >
             <Plus size={32} strokeWidth={3} />
           </button>
         </form>
 
-        <Reorder.Group axis="y" values={tasks} onReorder={setTasks} className="space-y-4">
+        <div className="space-y-4">
           <AnimatePresence initial={false}>
             {tasks.map((task) => (
-              <Reorder.Item
+              <div
                 key={task.id}
-                value={task}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 20 }}
                 className={cn(
-                  "p-6 rounded-[24px] border-4 border-brand-dark flex items-center gap-4 group transition-all brutal-shadow hover:-translate-y-1 active:translate-y-[2px]",
+                  "p-6 rounded-[24px] border-4 border-brand-dark flex items-center gap-4 group transition-all brutal-shadow cursor-default",
                   task.completed ? "bg-slate-100 opacity-60" : "bg-white"
                 )}
               >
-                <GripVertical size={24} className="text-slate-300 cursor-grab active:cursor-grabbing opacity-0 group-hover:opacity-100 transition-opacity" />
-                
-                <button 
-                  onClick={() => toggleTask(task.id)}
+                <div 
                   className={cn(
                     "transition-colors",
-                    task.completed ? "text-brand-mint" : "text-slate-300 hover:text-brand-secondary"
+                    task.completed ? "text-brand-mint" : "text-slate-300"
                   )}
                 >
                   {task.completed ? <CheckCircle2 size={32} strokeWidth={3} /> : <Circle size={32} strokeWidth={3} />}
-                </button>
+                </div>
 
                 <span className={cn(
                   "flex-1 text-xl font-bold text-brand-dark transition-all",
@@ -100,16 +91,13 @@ export function Tasks() {
                   {task.text}
                 </span>
 
-                <button 
-                  onClick={() => deleteTask(task.id)}
-                  className="p-2 text-slate-300 hover:text-brand-accent opacity-0 group-hover:opacity-100 transition-all"
-                >
+                <div className="p-2 text-slate-200">
                   <Trash2 size={24} />
-                </button>
-              </Reorder.Item>
+                </div>
+              </div>
             ))}
           </AnimatePresence>
-        </Reorder.Group>
+        </div>
       </div>
 
       <div className="space-y-8">

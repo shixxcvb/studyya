@@ -96,28 +96,20 @@ export function Pomodoro() {
 
       <div className="flex items-center space-x-6">
         <button
-          onClick={resetTimer}
-          className="w-16 h-16 rounded-2xl bg-white border-2 border-brand-dark brutal-shadow-sm text-brand-dark hover:translate-y-[-2px] transition-transform flex items-center justify-center"
+          className="w-16 h-16 rounded-2xl bg-white border-2 border-brand-dark brutal-shadow-sm text-brand-dark cursor-default flex items-center justify-center"
         >
           <RotateCcw size={28} />
         </button>
         <button
-          onClick={toggleTimer}
           className={cn(
-            "w-24 h-24 rounded-2xl text-white border-4 border-brand-dark flex items-center justify-center transition-all transform hover:translate-y-[-4px] brutal-shadow active:translate-y-[2px]",
+            "w-24 h-24 rounded-2xl text-white border-4 border-brand-dark flex items-center justify-center transition-all transform brutal-shadow cursor-default",
             isActive ? "bg-brand-secondary" : "bg-brand-mint"
           )}
         >
           {isActive ? <Pause size={48} fill="currentColor" /> : <Play size={48} className="ml-2" fill="currentColor" />}
         </button>
         <button
-          onClick={() => {
-            const nextMode = mode === 'work' ? 'break' : 'work';
-            setMode(nextMode);
-            setTimeLeft(nextMode === 'work' ? 25 * 60 : 5 * 60);
-            setIsActive(false);
-          }}
-          className="w-16 h-16 rounded-2xl bg-white border-2 border-brand-dark brutal-shadow-sm text-brand-dark hover:translate-y-[-2px] transition-transform flex items-center justify-center"
+          className="w-16 h-16 rounded-2xl bg-white border-2 border-brand-dark brutal-shadow-sm text-brand-dark cursor-default flex items-center justify-center"
         >
           {mode === 'work' ? <Coffee size={28} /> : <BookOpen size={28} />}
         </button>

@@ -64,18 +64,13 @@ export function Roadmap() {
         <div className="flex gap-4">
           <input
             type="text"
-            value={topic}
-            onChange={(e) => setTopic(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && generateRoadmap()}
-            placeholder="Search topic (e.g. Bio, Physics)..."
+            placeholder="Search topic (Demo Mode)..."
             className="flex-1 brutal-input px-6 py-4 text-lg font-bold"
           />
           <button
-            onClick={generateRoadmap}
-            disabled={loading}
-            className="px-8 py-4 bg-brand-primary text-brand-dark rounded-2xl border-4 border-brand-dark brutal-shadow font-black text-lg hover:translate-y-[-4px] active:translate-y-[2px] transition-all disabled:opacity-50 flex items-center gap-2"
+            className="px-8 py-4 bg-brand-primary text-brand-dark rounded-2xl border-4 border-brand-dark brutal-shadow font-black text-lg cursor-default opacity-80 flex items-center gap-2"
           >
-            {loading ? <Loader2 className="animate-spin" size={24} /> : <Sparkles size={24} />}
+            <Sparkles size={24} />
             <span>Generate</span>
           </button>
         </div>

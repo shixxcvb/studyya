@@ -99,16 +99,12 @@ export function Chat() {
         <div className="flex gap-3">
           <input
             type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+            readOnly
             placeholder="Type a message (Demo Mode)..."
-            className="flex-1 brutal-input px-6 py-3 font-bold"
+            className="flex-1 brutal-input px-6 py-3 font-bold cursor-default"
           />
           <button
-            onClick={handleSend}
-            disabled={loading || !input.trim()}
-            className="w-14 h-14 bg-brand-secondary text-white rounded-2xl border-4 border-brand-dark brutal-shadow hover:translate-y-[-4px] active:translate-y-[2px] disabled:opacity-50 transition-all flex items-center justify-center"
+            className="w-14 h-14 bg-brand-secondary/50 text-white rounded-2xl border-4 border-brand-dark brutal-shadow cursor-default flex items-center justify-center"
           >
             <Send size={24} />
           </button>
