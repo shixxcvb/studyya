@@ -136,28 +136,38 @@ export default function App() {
       {/* Mobile Sidebar Navigation */}
       <AnimatePresence>
         {isMenuOpen && (
-          <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            className="fixed inset-0 z-[90] bg-brand-primary p-12 flex flex-col pt-32 gap-8 md:hidden"
-          >
-            {navLinks.map(link => (
-              <button
-                key={link.id}
-                onClick={() => handleNav(link.id as Page)}
-                className="text-4xl font-black uppercase tracking-tighter text-brand-dark text-left"
-              >
-                {link.label}
-              </button>
-            ))}
-            <button 
-              onClick={() => handleNav('app')}
-              className="mt-8 px-8 py-4 bg-brand-dark text-brand-primary rounded-2xl font-black text-2xl border-4 border-brand-dark brutal-shadow"
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMenuOpen(false)}
+              className="fixed inset-0 z-[85] bg-brand-dark/40 backdrop-blur-sm md:hidden"
+            />
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed top-0 right-0 bottom-0 z-[90] bg-brand-primary p-12 flex flex-col pt-32 gap-6 w-[85%] max-w-sm border-l-8 border-brand-dark md:hidden h-full overflow-y-auto"
             >
-              LAUNCH APP
-            </button>
-          </motion.div>
+              {navLinks.map(link => (
+                <button
+                  key={link.id}
+                  onClick={() => handleNav(link.id as Page)}
+                  className="text-3xl font-black uppercase tracking-tighter text-brand-dark text-left hover:translate-x-2 transition-transform"
+                >
+                  {link.label}
+                </button>
+              ))}
+              <button 
+                onClick={() => handleNav('app')}
+                className="mt-8 px-8 py-4 bg-brand-dark text-brand-primary rounded-2xl font-black text-xl border-4 border-brand-dark brutal-shadow hover:translate-y-[-4px] active:translate-y-0 transition-all"
+              >
+                LAUNCH APP
+              </button>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
 
@@ -172,9 +182,9 @@ export default function App() {
               className="overflow-hidden"
             >
               {/* Hero Section */}
-              <section className="px-6 md:px-12 py-16 md:py-24 relative">
-                <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                  <div className="space-y-8 relative z-10 text-center lg:text-left">
+              <section className="px-6 md:px-12 py-12 md:py-24 relative overflow-hidden">
+                <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                  <div className="space-y-6 sm:space-y-8 relative z-10 text-center lg:text-left pt-6">
                     <motion.div 
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
@@ -187,60 +197,60 @@ export default function App() {
                       initial={{ opacity: 0, x: -50 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.8, ease: "easeOut" }}
-                      className="text-5xl md:text-7xl font-black leading-[0.9] tracking-tighter text-brand-dark"
+                      className="text-4xl sm:text-5xl md:text-7xl font-black leading-[1.1] md:leading-[0.9] tracking-tighter text-brand-dark px-2 md:px-0"
                     >
-                      STUDY <span className="text-brand-secondary italic">SMARTER</span>, <br/>
+                      STUDY <span className="text-brand-secondary italic">SMARTER</span>, <br className="hidden sm:block"/>
                       NOT <motion.span 
                         animate={{ rotate: [-2, 2, -2] }}
                         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                        className="bg-white px-3 border-4 border-brand-dark inline-block"
+                        className="bg-white px-2 sm:px-3 border-2 sm:border-4 border-brand-dark inline-block"
                       >
                         HARDER.
                       </motion.span>
                     </motion.h1>
-                    <p className="text-lg md:text-xl font-bold text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                    <p className="text-base sm:text-lg md:text-xl font-bold text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed px-4 md:px-0">
                       Hyper-charge your learning with interactive roadmaps, focused pomodoro sprints, and a study buddy that never sleeps.
                     </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start px-6 sm:px-0">
                       <button 
                         onClick={() => handleNav('app')}
-                        className="px-6 py-4 bg-brand-dark text-brand-primary rounded-2xl font-black text-lg border-4 border-brand-dark brutal-shadow hover:translate-y-[-4px] active:translate-y-0 transition-all flex items-center justify-center gap-3 uppercase tracking-tighter"
+                        className="px-6 py-4 bg-brand-dark text-brand-primary rounded-2xl font-black text-base sm:text-lg border-4 border-brand-dark brutal-shadow hover:translate-y-[-4px] active:translate-y-0 transition-all flex items-center justify-center gap-3 uppercase tracking-tighter"
                       >
                         Start Learning Free <ChevronRight strokeWidth={4} />
                       </button>
-                      <button className="px-6 py-4 bg-white text-brand-dark rounded-2xl font-black text-lg border-4 border-brand-dark brutal-shadow-sm hover:translate-y-[-4px] active:translate-y-0 transition-all uppercase tracking-tighter">
+                      <button className="px-6 py-4 bg-white text-brand-dark rounded-2xl font-black text-base sm:text-lg border-4 border-brand-dark brutal-shadow-sm hover:translate-y-[-4px] active:translate-y-0 transition-all uppercase tracking-tighter">
                         Watch Demo
                       </button>
                     </div>
                   </div>
 
-                  <div className="relative">
+                  <div className="relative px-4 sm:px-12 lg:px-0 mt-8 lg:mt-0">
                     {/* Floating Decorative Elements */}
-                    <FloatingSticker className="top-0 right-0 -translate-y-full" delay={0}>
+                    <FloatingSticker className="top-0 right-0 -translate-y-1/2 scale-75 md:scale-100" delay={0}>
                       <Sparkles size={60} className="text-brand-primary" strokeWidth={3} />
                     </FloatingSticker>
-                    <FloatingSticker className="-bottom-16 -left-16" delay={1.5}>
+                    <FloatingSticker className="-bottom-8 lg:-bottom-16 -left-8 lg:-left-16 scale-75 md:scale-100" delay={1.5}>
                       <GraduationCap size={100} className="text-brand-secondary" strokeWidth={3} />
                     </FloatingSticker>
 
-                    <div className="w-full aspect-square bg-brand-primary rounded-[48px] border-4 border-brand-dark shadow-[8px_8px_0px_#2D3436] rotate-3 overflow-hidden relative z-10">
-                       <div className="p-8 space-y-6">
-                         <div className="brutal-card bg-white p-6 rotate-[-2deg]">
+                    <div className="w-full aspect-square bg-brand-primary rounded-[32px] md:rounded-[48px] border-4 border-brand-dark shadow-[8px_8px_0px_#2D3436] rotate-3 overflow-hidden relative z-10 max-w-sm mx-auto lg:max-w-none">
+                       <div className="p-4 sm:p-8 space-y-4 sm:space-y-6">
+                         <div className="brutal-card bg-white p-4 sm:p-6 rotate-[-2deg]">
                            <div className="flex gap-4 items-center">
-                             <div className="w-12 h-12 bg-brand-secondary rounded-full border-2 border-brand-dark shadow-[4px_4px_0px_#2D3436]" />
+                             <div className="w-10 h-10 sm:w-12 sm:h-12 bg-brand-secondary rounded-full border-2 border-brand-dark shadow-[4px_4px_0px_#2D3436]" />
                              <div>
-                               <div className="h-4 w-32 bg-brand-dark rounded-full mb-2" />
-                               <div className="h-3 w-20 bg-slate-200 rounded-full" />
+                               <div className="h-4 w-24 sm:w-32 bg-brand-dark rounded-full mb-2" />
+                               <div className="h-3 w-16 sm:w-20 bg-slate-200 rounded-full" />
                              </div>
                            </div>
                          </div>
-                         <div className="brutal-card bg-brand-mint p-6 rotate-[1deg] translate-x-4">
+                         <div className="brutal-card bg-brand-mint p-4 sm:p-6 rotate-[1deg] translate-x-4">
                            <div className="space-y-3">
                              <div className="h-4 w-full bg-brand-dark/20 rounded-full" />
                              <div className="h-4 w-2/3 bg-brand-dark/20 rounded-full" />
                            </div>
                          </div>
-                         <div className="brutal-card bg-brand-blue p-6 rotate-[-1deg] -translate-x-4">
+                         <div className="brutal-card bg-brand-blue p-4 sm:p-6 rotate-[-1deg] -translate-x-4">
                             <Sparkles className="text-white mb-4" size={32} />
                             <div className="h-4 w-full bg-white/30 rounded-full" />
                          </div>
@@ -256,88 +266,88 @@ export default function App() {
               </div>
 
               {/* Stats Section */}
-              <section className="bg-brand-dark py-20 overflow-hidden relative">
+              <section className="bg-brand-dark py-16 md:py-20 overflow-hidden relative">
                 <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-                  <div className="grid grid-cols-12 h-full">
+                  <div className="grid grid-cols-6 md:grid-cols-12 h-full">
                     {Array.from({ length: 12 }).map((_, i) => (
                       <div key={i} className="border-r border-white/20 h-full" />
                     ))}
                   </div>
                 </div>
-                <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-wrap justify-center gap-12 md:gap-24 relative z-10">
+                <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 sm:grid-cols-3 gap-12 md:gap-24 relative z-10 lg:flex lg:justify-center lg:gap-32">
                   <div className="text-center">
-                    <p className="text-6xl md:text-8xl font-black text-brand-primary tracking-tighter">50K+</p>
-                    <p className="text-brand-bg uppercase font-black tracking-widest text-sm mt-2">Active Students</p>
+                    <p className="text-5xl sm:text-6xl md:text-8xl font-black text-brand-primary tracking-tighter">50K+</p>
+                    <p className="text-brand-bg uppercase font-black tracking-widest text-xs sm:text-sm mt-2">Active Students</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-6xl md:text-8xl font-black text-brand-secondary tracking-tighter">12M+</p>
-                    <p className="text-brand-bg uppercase font-black tracking-widest text-sm mt-2">XP Earned</p>
+                    <p className="text-5xl sm:text-6xl md:text-8xl font-black text-brand-secondary tracking-tighter">12M+</p>
+                    <p className="text-brand-bg uppercase font-black tracking-widest text-xs sm:text-sm mt-2">XP Earned</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-6xl md:text-8xl font-black text-brand-mint tracking-tighter">200+</p>
-                    <p className="text-brand-bg uppercase font-black tracking-widest text-sm mt-2">Roadmaps Built</p>
+                    <p className="text-5xl sm:text-6xl md:text-8xl font-black text-brand-mint tracking-tighter">200+</p>
+                    <p className="text-brand-bg uppercase font-black tracking-widest text-xs sm:text-sm mt-2">Roadmaps Built</p>
                   </div>
                 </div>
               </section>
 
               {/* Features Section */}
-              <section className="px-6 md:px-12 py-32 bg-white">
-                <div className="max-w-7xl mx-auto space-y-24 relative">
-                  <FloatingSticker className="top-1/4 right-0" delay={2}>
+              <section className="px-6 md:px-12 py-20 md:py-32 bg-white overflow-hidden">
+                <div className="max-w-7xl mx-auto space-y-20 md:space-y-24 relative">
+                  <FloatingSticker className="top-1/4 right-0 scale-75 lg:scale-100" delay={2}>
                     <Code size={100} className="text-brand-mint" strokeWidth={3} />
                   </FloatingSticker>
-                  <FloatingSticker className="bottom-1/4 left-0" delay={0.5}>
+                  <FloatingSticker className="bottom-1/4 left-0 scale-75 lg:scale-100" delay={0.5}>
                     <Heart size={80} className="text-brand-accent" strokeWidth={3} />
                   </FloatingSticker>
 
-                  <div className="text-center max-w-3xl mx-auto space-y-6">
-                    <h2 className="text-5xl md:text-6xl font-black uppercase tracking-tighter">Everything you need to <br/> <span className="text-brand-primary">OWN</span> your studies</h2>
-                    <p className="text-xl font-bold text-slate-500">We stripped away the clutter and focused on what actually works: Focus, Structure, and Support.</p>
+                  <div className="text-center max-w-3xl mx-auto space-y-4 md:space-y-6">
+                    <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter px-4">Everything you need to <br/> <span className="text-brand-primary">OWN</span> your studies</h2>
+                    <p className="text-lg md:text-xl font-bold text-slate-500 px-6">We stripped away the clutter and focused on what actually works: Focus, Structure, and Support.</p>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-                    <div className="brutal-card p-10 bg-brand-bg border-brand-primary border-4 space-y-6">
-                      <div className="w-16 h-16 bg-brand-primary rounded-2xl border-4 border-brand-dark flex items-center justify-center">
-                        <MapIcon size={32} strokeWidth={3} className="text-brand-dark" />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
+                    <div className="brutal-card p-8 md:p-10 bg-brand-bg border-brand-primary border-4 space-y-6">
+                      <div className="w-14 h-14 md:w-16 md:h-16 bg-brand-primary rounded-2xl border-4 border-brand-dark flex items-center justify-center">
+                        <MapIcon size={28} strokeWidth={3} className="text-brand-dark" />
                       </div>
-                      <h3 className="text-2xl font-black uppercase tracking-tighter">Roadmaps</h3>
-                      <p className="font-bold text-slate-600 leading-relaxed">Instantly architect a 5-step master plan for any subject you want to master.</p>
+                      <h3 className="text-xl md:text-2xl font-black uppercase tracking-tighter">Roadmaps</h3>
+                      <p className="font-bold text-slate-600 leading-relaxed text-sm md:text-base">Instantly architect a 5-step master plan for any subject you want to master.</p>
                     </div>
 
-                    <div className="brutal-card p-10 bg-brand-bg border-brand-mint border-4 space-y-6">
-                      <div className="w-16 h-16 bg-brand-mint rounded-2xl border-4 border-brand-dark flex items-center justify-center text-brand-dark">
-                        <Monitor size={32} strokeWidth={3} />
+                    <div className="brutal-card p-8 md:p-10 bg-brand-bg border-brand-mint border-4 space-y-6">
+                      <div className="w-14 h-14 md:w-16 md:h-16 bg-brand-mint rounded-2xl border-4 border-brand-dark flex items-center justify-center text-brand-dark">
+                        <Monitor size={28} strokeWidth={3} />
                       </div>
-                      <h3 className="text-2xl font-black uppercase tracking-tighter">Study Guide</h3>
-                      <p className="font-bold text-slate-600 leading-relaxed">Structured guides that break down complex topics into digestible learning bites.</p>
+                      <h3 className="text-xl md:text-2xl font-black uppercase tracking-tighter">Study Guide</h3>
+                      <p className="font-bold text-slate-600 leading-relaxed text-sm md:text-base">Structured guides that break down complex topics into digestible learning bites.</p>
                     </div>
 
-                    <div className="brutal-card p-10 bg-brand-bg border-brand-secondary border-4 space-y-6">
-                      <div className="w-16 h-16 bg-brand-secondary rounded-2xl border-4 border-brand-dark flex items-center justify-center text-white">
-                        <Sparkles size={32} strokeWidth={3} />
+                    <div className="brutal-card p-8 md:p-10 bg-brand-bg border-brand-secondary border-4 space-y-6">
+                      <div className="w-14 h-14 md:w-16 md:h-16 bg-brand-secondary rounded-2xl border-4 border-brand-dark flex items-center justify-center text-white">
+                        <Sparkles size={28} strokeWidth={3} />
                       </div>
-                      <h3 className="text-2xl font-black uppercase tracking-tighter">AI Assistant Tutor</h3>
-                      <p className="font-bold text-slate-600 leading-relaxed">Your personal tutor ready to quiz you or explain complex theories 24/7.</p>
+                      <h3 className="text-xl md:text-2xl font-black uppercase tracking-tighter">AI Assistant Tutor</h3>
+                      <p className="font-bold text-slate-600 leading-relaxed text-sm md:text-base">Your personal tutor ready to quiz you or explain complex theories 24/7.</p>
                     </div>
 
-                    <div className="brutal-card p-10 bg-brand-bg border-brand-accent border-4 space-y-6">
-                      <div className="w-16 h-16 bg-brand-accent rounded-2xl border-4 border-brand-dark flex items-center justify-center text-white">
-                        <LayoutDashboard size={32} strokeWidth={3} />
+                    <div className="brutal-card p-8 md:p-10 bg-brand-bg border-brand-accent border-4 space-y-6">
+                      <div className="w-14 h-14 md:w-16 md:h-16 bg-brand-accent rounded-2xl border-4 border-brand-dark flex items-center justify-center text-white">
+                        <LayoutDashboard size={28} strokeWidth={3} />
                       </div>
-                      <h3 className="text-2xl font-black uppercase tracking-tighter">Smart Scheduler</h3>
-                      <p className="font-bold text-slate-600 leading-relaxed">Automatically organize your study sessions around your life's peak performance hours.</p>
+                      <h3 className="text-xl md:text-2xl font-black uppercase tracking-tighter">Smart Scheduler</h3>
+                      <p className="font-bold text-slate-600 leading-relaxed text-sm md:text-base">Automatically organize your study sessions around your life's peak performance hours.</p>
                     </div>
                   </div>
 
-                  <div className="brutal-card p-12 bg-white border-brand-dark border-4 mt-12 overflow-hidden shadow-[8px_8px_0px_#2D3436] hover:translate-y-[-4px] transition-all">
+                  <div className="brutal-card p-8 md:p-12 bg-white border-brand-dark border-4 mt-12 overflow-hidden shadow-[8px_8px_0px_#2D3436] hover:translate-y-[-4px] transition-all">
                     <motion.h3 
                       initial={{ opacity: 0, y: 10 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      className="text-3xl font-black uppercase tracking-tighter mb-12 text-center"
+                      className="text-2xl md:text-3xl font-black uppercase tracking-tighter mb-8 md:mb-12 text-center"
                     >
                       WE OFFER MORE FEATURES
                     </motion.h3>
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
                       {[
                         { label: 'Protected Time', icon: <Timer size={20} />, desc: "Set periods where focus is un-interrupted.", color: "#55EFC4" },
                         { label: 'Schedule Upload', icon: <Monitor size={20} />, desc: "Auto-sync your classes and deadlines.", color: "#81ECEC" },
@@ -354,14 +364,14 @@ export default function App() {
                           whileHover={{ scale: 1.05, rotate: idx % 2 === 0 ? 2 : -2, backgroundColor: feat.color }}
                           whileTap={{ scale: 0.95, borderColor: '#2D3436' }}
                           viewport={{ once: true }}
-                          className="flex flex-col items-center gap-3 p-4 bg-brand-bg border-4 border-brand-dark rounded-2xl brutal-shadow-sm transition-colors cursor-pointer group"
+                          className="flex flex-col items-center gap-3 p-6 bg-brand-bg border-4 border-brand-dark rounded-2xl brutal-shadow-sm transition-colors cursor-pointer group"
                         >
-                          <div className="p-2 bg-white border-2 border-brand-dark rounded-xl group-hover:rotate-12 transition-transform">
+                          <div className="p-3 bg-white border-2 border-brand-dark rounded-xl group-hover:rotate-12 transition-transform">
                             {feat.icon}
                           </div>
-                          <div className="text-center space-y-1">
-                            <span className="text-[10px] font-black uppercase tracking-tighter block">{feat.label}</span>
-                            <p className="text-[8px] font-bold text-slate-500 leading-tight opacity-0 group-hover:opacity-100 transition-opacity">{feat.desc}</p>
+                          <div className="text-center space-y-2">
+                            <span className="text-xs font-black uppercase tracking-tighter block">{feat.label}</span>
+                            <p className="text-[10px] font-bold text-slate-500 leading-tight md:opacity-0 md:group-hover:opacity-100 transition-opacity">{feat.desc}</p>
                           </div>
                         </motion.div>
                       ))}
@@ -372,22 +382,22 @@ export default function App() {
                     <InfiniteMarquee text="FOCUS • LEARN • SUCCEED" speed={25} reverse />
                   </div>
 
-                  <div className="mt-20 max-w-7xl mx-auto mb-20 text-center relative px-6 py-20 bg-brand-secondary/5 border-4 border-dashed border-brand-dark/10 rounded-[64px]">
+                  <div className="mt-12 md:mt-20 max-w-7xl mx-auto mb-12 md:mb-20 text-center relative px-4 md:px-6 py-12 md:py-20 bg-brand-secondary/5 border-4 border-dashed border-brand-dark/10 rounded-[32px] md:rounded-[64px] overflow-hidden">
                     <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #2D3436 2px, transparent 0)', backgroundSize: '24px 24px' }} />
                     <motion.div 
                       initial={{ opacity: 0, y: 30 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       whileHover={{ scale: 1.01 }}
                       viewport={{ once: true }}
-                      className="p-12 md:p-16 brutal-card bg-brand-mint border-4 border-brand-dark inline-block max-w-4xl shadow-[16px_16px_0px_#2D3436] relative z-10"
+                      className="p-8 md:p-16 brutal-card bg-brand-mint border-4 border-brand-dark inline-block max-w-4xl shadow-[12px_12px_0px_#2D3436] md:shadow-[16px_16px_0px_#2D3436] relative z-10"
                     >
-                      <p className="text-4xl md:text-5xl font-black italic mb-8 leading-[1.1] text-brand-dark tracking-tighter">
+                      <p className="text-2xl sm:text-3xl md:text-5xl font-black italic mb-6 md:mb-8 leading-[1.2] md:leading-[1.1] text-brand-dark tracking-tighter">
                         “Be productive enough to move forward, but gentle enough to keep going— because a burnt-out mind builds nothing that lasts.”
                       </p>
-                      <div className="flex items-center justify-center gap-6">
-                        <div className="h-1 w-16 bg-brand-dark" />
-                        <p className="text-lg font-black uppercase tracking-[0.2em]">— StudyYa Philosophy</p>
-                        <div className="h-1 w-16 bg-brand-dark" />
+                      <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
+                        <div className="hidden md:block h-1 w-16 bg-brand-dark" />
+                        <p className="text-sm md:text-lg font-black uppercase tracking-[0.2em]">— StudyYa Philosophy</p>
+                        <div className="hidden md:block h-1 w-16 bg-brand-dark" />
                       </div>
                     </motion.div>
                   </div>
@@ -557,10 +567,10 @@ export default function App() {
 
               {/* Current Opportunities */}
               <div className="pt-10 space-y-8">
-                <div className="bg-slate-50/50 rounded-[48px] p-8 md:p-12 border-2 border-brand-dark/5 max-w-6xl mx-auto shadow-inner">
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div className="bg-slate-50/50 rounded-[32px] md:rounded-[48px] p-6 sm:p-8 md:p-12 border-2 border-brand-dark/5 max-w-6xl mx-auto shadow-inner">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center text-center lg:text-left">
                     <div className="space-y-6">
-                      <h3 className="text-3xl font-black text-brand-dark tracking-tighter uppercase italic">Current Opportunities</h3>
+                      <h3 className="text-2xl md:text-3xl font-black text-brand-dark tracking-tighter uppercase italic">Current Opportunities</h3>
                       <div className="space-y-3">
                         {[
                           "Improve onboarding experience",
@@ -575,12 +585,12 @@ export default function App() {
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ delay: idx * 0.1 }}
                             whileHover={{ scale: 1.02, x: 5 }}
-                            className="flex items-center gap-3 p-3 bg-white border-2 border-brand-dark rounded-xl shadow-[3px_3px_0px_var(--color-brand-dark)] transition-all cursor-default group"
+                            className="flex items-center gap-3 p-3 bg-white border-2 border-brand-dark rounded-xl shadow-[3px_3px_0px_var(--color-brand-dark)] transition-all cursor-default group justify-start"
                           >
                             <div className="w-8 h-8 rounded-full border-2 border-brand-dark flex items-center justify-center bg-white shrink-0 group-hover:bg-brand-primary transition-colors">
                               <CheckCircle2 size={16} className="text-brand-dark" strokeWidth={3} />
                             </div>
-                            <span className="text-lg font-bold text-brand-dark tracking-tight">{item}</span>
+                            <span className="text-base md:text-lg font-bold text-brand-dark tracking-tight">{item}</span>
                           </motion.div>
                         ))}
                       </div>
@@ -590,7 +600,7 @@ export default function App() {
                       <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         whileInView={{ opacity: 1, scale: 1 }}
-                        className="w-full max-w-[480px] aspect-square rounded-[32px] overflow-hidden border-4 border-brand-dark shadow-[12px_12px_0px_var(--color-brand-dark)]"
+                        className="w-full max-w-[320px] sm:max-w-[480px] aspect-square rounded-[24px] md:rounded-[32px] overflow-hidden border-4 border-brand-dark shadow-[8px_8px_0px_var(--color-brand-dark)] md:shadow-[12px_12px_0px_var(--color-brand-dark)]"
                       >
                         <img src="/team.jpg" alt="Team" className="w-full h-full object-cover" />
                       </motion.div>
@@ -843,9 +853,61 @@ export default function App() {
 
 // Extracted the tool content to a separate helper component for the "App" view
 function AppContent() {
+  const [activeSubTab, setActiveSubTab] = useState('Dashboard');
+  
+  const subTabs = [
+    { name: 'Dashboard', icon: <LayoutDashboard size={18} /> },
+    { name: 'Roadmap', icon: <MapIcon size={18} /> },
+    { name: 'Tasks', icon: <CheckSquare size={18} /> },
+    { name: 'Timer', icon: <Timer size={18} /> },
+    { name: 'Chat', icon: <MessageCircle size={18} /> }
+  ];
+
   return (
-    <div className="min-h-[600px] flex items-center justify-center">
-      <DashboardView onNav={() => {}} />
+    <div className="space-y-8 w-full">
+      <div className="flex overflow-x-auto pb-4 sm:pb-0 sm:justify-center gap-3 no-scrollbar scroll-smooth px-2">
+        {subTabs.map(tab => (
+          <button
+            key={tab.name}
+            onClick={() => setActiveSubTab(tab.name)}
+            className={cn(
+              "flex items-center gap-2 px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest border-4 border-brand-dark transition-all shrink-0 brutal-shadow-sm",
+              activeSubTab === tab.name 
+                ? "bg-brand-secondary text-white -translate-y-1 shadow-[4px_4px_0px_var(--color-brand-dark)]" 
+                : "bg-white text-brand-dark hover:bg-slate-50"
+            )}
+          >
+            {tab.icon}
+            {tab.name}
+          </button>
+        ))}
+      </div>
+
+      <div className="min-h-[500px] w-full">
+        <AnimatePresence mode="wait">
+          {activeSubTab === 'Dashboard' && <DashboardView onNav={setActiveSubTab} />}
+          {activeSubTab === 'Roadmap' && (
+            <motion.div key="roadmap" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+              <div className="max-w-4xl mx-auto"><Roadmap /></div>
+            </motion.div>
+          )}
+          {activeSubTab === 'Tasks' && (
+            <motion.div key="tasks" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+              <div className="max-w-4xl mx-auto"><Tasks /></div>
+            </motion.div>
+          )}
+          {activeSubTab === 'Timer' && (
+            <motion.div key="timer" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+              <div className="max-w-xl mx-auto"><Pomodoro /></div>
+            </motion.div>
+          )}
+          {activeSubTab === 'Chat' && (
+            <motion.div key="chat" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+              <Chat />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 }
@@ -861,8 +923,8 @@ function DashboardView({ onNav }: { onNav: (id: string) => void }) {
     >
       {/* Hero */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-10">
-        <div className="xl:col-span-2 bg-brand-primary p-12 rounded-[48px] border-4 border-brand-dark shadow-[12px_12px_0px_var(--color-brand-dark)] relative overflow-hidden flex flex-col justify-center min-h-[400px]">
-          <div className="relative z-10 space-y-8">
+        <div className="xl:col-span-2 bg-brand-primary p-6 sm:p-12 rounded-[32px] sm:rounded-[48px] border-4 border-brand-dark shadow-[8px_8px_0px_var(--color-brand-dark)] sm:shadow-[12px_12px_0px_var(--color-brand-dark)] relative overflow-hidden flex flex-col justify-center min-h-[350px] sm:min-h-[400px]">
+          <div className="relative z-10 space-y-6 sm:space-y-8">
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -871,18 +933,18 @@ function DashboardView({ onNav }: { onNav: (id: string) => void }) {
               <Sparkles size={14} className="text-brand-secondary" />
               <span>Level 14 Overlord</span>
             </motion.div>
-            <h2 className="text-6xl md:text-7xl font-black leading-none text-brand-dark tracking-tighter">
-              READY TO <br/>
-              <span className="bg-white px-2 border-4 border-brand-dark mt-2 inline-block">CRUSH IT?</span>
+            <h2 className="text-4xl sm:text-6xl md:text-7xl font-black leading-tight sm:leading-none text-brand-dark tracking-tighter">
+              READY TO <br className="hidden sm:block"/>
+              <span className="bg-white px-2 border-2 sm:border-4 border-brand-dark mt-2 inline-block">CRUSH IT?</span>
             </h2>
-            <p className="text-xl font-bold text-brand-dark/80 max-w-lg leading-relaxed">
+            <p className="text-base sm:text-xl font-bold text-brand-dark/80 max-w-lg leading-relaxed">
               You're just 400 XP away from reaching Level 15. Keep that 12-day streak alive and unlock the Dark Mode theme!
             </p>
             <div className="flex flex-wrap gap-4 pt-4">
               <button 
-                className="brutal-btn flex items-center gap-3 bg-brand-dark cursor-default opacity-80"
+                className="brutal-btn flex items-center gap-3 bg-brand-dark cursor-default opacity-80 !px-6 !py-3 !text-base sm:!text-xl"
               >
-                BUILD ROADMAP <ArrowRight size={24} />
+                BUILD ROADMAP <ArrowRight size={20} sm:size={24} />
               </button>
             </div>
           </div>
@@ -890,7 +952,7 @@ function DashboardView({ onNav }: { onNav: (id: string) => void }) {
           <div className="absolute top-10 right-20 w-16 h-16 bg-brand-mint border-4 border-brand-dark rounded-2xl rotate-12 shadow-[4px_4px_0px_#2D3436]" />
         </div>
 
-        <div className="bg-white p-10 rounded-[48px] border-4 border-brand-dark shadow-[12px_12px_0px_var(--color-brand-dark)] flex flex-col items-center justify-center text-center">
+        <div className="bg-white p-8 sm:p-10 rounded-[32px] sm:rounded-[48px] border-4 border-brand-dark shadow-[8px_8px_0px_var(--color-brand-dark)] sm:shadow-[12px_12px_0px_var(--color-brand-dark)] flex flex-col items-center justify-center text-center">
           <div className="w-32 h-32 bg-brand-accent rounded-full flex items-center justify-center mb-6 border-4 border-brand-dark relative shadow-[4px_4px_0px_#2D3436]">
             <span className="text-5xl">⭐</span>
             <div className="absolute -top-3 -right-3 bg-brand-secondary text-white text-xs font-black px-3 py-1.5 rounded-full border-2 border-brand-dark uppercase tracking-widest">LVL 14</div>

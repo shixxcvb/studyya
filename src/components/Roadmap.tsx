@@ -58,19 +58,19 @@ export function Roadmap() {
   return (
     <div className="max-w-4xl mx-auto space-y-8">
       <div className="flex flex-col space-y-4">
-        <h2 className="text-4xl font-black text-brand-dark tracking-tighter">Knowledge Roadmap</h2>
+        <h2 className="text-3xl md:text-4xl font-black text-brand-dark tracking-tighter">Knowledge Roadmap</h2>
         <p className="text-slate-500 font-bold italic uppercase tracking-widest text-[10px]">Demo Mode: Standard Template Generation</p>
         
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-4">
           <input
             type="text"
             placeholder="Search topic (Demo Mode)..."
-            className="flex-1 brutal-input px-6 py-4 text-lg font-bold"
+            className="flex-1 brutal-input px-6 py-4 text-base sm:text-lg font-bold"
           />
           <button
-            className="px-8 py-4 bg-brand-primary text-brand-dark rounded-2xl border-4 border-brand-dark brutal-shadow font-black text-lg cursor-default opacity-80 flex items-center gap-2"
+            className="px-8 py-4 bg-brand-primary text-brand-dark rounded-2xl border-4 border-brand-dark brutal-shadow font-black text-base sm:text-lg cursor-default opacity-80 flex items-center justify-center gap-2"
           >
-            <Sparkles size={24} />
+            <Sparkles size={20} sm:size={24} />
             <span>Generate</span>
           </button>
         </div>
@@ -87,12 +87,12 @@ export function Roadmap() {
           >
             <div className="flex items-center gap-3 text-brand-dark mb-4">
               <div className="p-3 bg-brand-secondary rounded-2xl border-2 border-brand-dark brutal-shadow-sm">
-                <BookOpen size={28} className="text-white" />
+                <BookOpen size={24} sm:size={28} className="text-white" />
               </div>
-              <h3 className="text-2xl font-black uppercase tracking-tighter">{roadmap.topic} Master Plan</h3>
+              <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tighter">{roadmap.topic} Master Plan</h3>
             </div>
             
-            <div className="relative pl-12 border-l-4 border-brand-dark space-y-12 ml-6">
+            <div className="relative pl-6 sm:pl-12 border-l-4 border-brand-dark space-y-12 ml-4 sm:ml-6">
               {roadmap.steps.map((step, idx) => (
                 <motion.div 
                   key={idx}
@@ -101,23 +101,23 @@ export function Roadmap() {
                   transition={{ delay: idx * 0.1 }}
                   className="relative"
                 >
-                  <div className="absolute -left-[64px] top-4 w-12 h-12 rounded-2xl bg-white border-4 border-brand-dark brutal-shadow-sm flex items-center justify-center font-black text-xl">
+                  <div className="absolute -left-[40px] sm:-left-[64px] top-4 w-8 h-8 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white border-4 border-brand-dark brutal-shadow-sm flex items-center justify-center font-black text-sm sm:text-xl">
                     {idx + 1}
                   </div>
                   
-                  <div className="brutal-card p-8 group hover:border-brand-secondary transition-all">
-                    <div className="flex justify-between items-start mb-4">
-                      <h4 className="text-2xl font-black text-brand-dark">{step.title}</h4>
-                      <span className="px-4 py-2 bg-brand-mint text-brand-dark text-xs font-black rounded-xl border-2 border-brand-dark uppercase">
+                  <div className="brutal-card p-6 sm:p-8 group hover:border-brand-secondary transition-all">
+                    <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-4">
+                      <h4 className="text-xl sm:text-2xl font-black text-brand-dark">{step.title}</h4>
+                      <span className="px-3 py-1.5 sm:px-4 sm:py-2 bg-brand-mint text-brand-dark text-[10px] sm:text-xs font-black rounded-xl border-2 border-brand-dark uppercase whitespace-nowrap">
                         {step.duration}
                       </span>
                     </div>
-                    <p className="text-slate-700 font-bold leading-relaxed mb-6">{step.description}</p>
+                    <p className="text-sm sm:text-base text-slate-700 font-bold leading-relaxed mb-6">{step.description}</p>
                     
-                    <div className="flex flex-wrap gap-3">
+                    <div className="flex flex-wrap gap-2 sm:gap-3">
                       {step.resources.map((res, ridx) => (
-                        <span key={ridx} className="flex items-center gap-2 px-3 py-2 bg-brand-bg border-2 border-brand-dark rounded-xl text-slate-700 text-sm font-bold">
-                          <ChevronRight size={16} className="text-brand-secondary" />
+                        <span key={ridx} className="flex items-center gap-2 px-3 py-1.5 sm:py-2 bg-brand-bg border-2 border-brand-dark rounded-xl text-slate-700 text-[10px] sm:text-sm font-bold">
+                          <ChevronRight size={14} sm:size={16} className="text-brand-secondary" />
                           {res}
                         </span>
                       ))}

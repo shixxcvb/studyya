@@ -42,26 +42,26 @@ export function Tasks() {
   const COLORS = ['#FF7EB3', '#F1F5F9'];
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-      <div className="lg:col-span-2 space-y-8">
-        <div className="flex justify-between items-center">
-          <h2 className="text-4xl font-black text-brand-dark tracking-tighter">Task Deck</h2>
-          <span className="bg-brand-primary border-2 border-brand-dark px-3 py-1 rounded-lg text-xs font-black uppercase tracking-widest brutal-shadow-sm">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12">
+      <div className="lg:col-span-2 space-y-6 sm:space-y-8">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <h2 className="text-3xl md:text-4xl font-black text-brand-dark tracking-tighter uppercase italic">Task Deck</h2>
+          <span className="bg-brand-primary border-2 border-brand-dark px-3 py-1 rounded-lg text-[10px] sm:text-xs font-black uppercase tracking-widest brutal-shadow-sm self-end sm:self-auto">
             {completedCount}/{totalCount} CRUSHED
           </span>
         </div>
 
-        <form onSubmit={(e) => e.preventDefault()} className="flex gap-4">
+        <form onSubmit={(e) => e.preventDefault()} className="flex gap-3 sm:gap-4">
           <input
             type="text"
-            placeholder="Add a new goal (Demo Mode)..."
-            className="flex-1 brutal-input px-6 py-4 font-bold text-lg"
+            placeholder="Add a new goal..."
+            className="flex-1 brutal-input px-5 py-3 sm:px-6 sm:py-4 font-bold text-base sm:text-lg"
           />
           <button
             type="button"
-            className="w-16 h-16 bg-brand-secondary/50 text-white rounded-2xl border-4 border-brand-dark brutal-shadow cursor-default flex items-center justify-center pt-1"
+            className="w-14 h-14 sm:w-16 sm:h-16 bg-brand-secondary text-white rounded-2xl border-4 border-brand-dark brutal-shadow cursor-default flex items-center justify-center pt-1 shrink-0"
           >
-            <Plus size={32} strokeWidth={3} />
+            <Plus size={28} sm:size={32} strokeWidth={3} />
           </button>
         </form>
 
@@ -71,28 +71,28 @@ export function Tasks() {
               <div
                 key={task.id}
                 className={cn(
-                  "p-6 rounded-[24px] border-4 border-brand-dark flex items-center gap-4 group transition-all brutal-shadow cursor-default",
+                  "p-5 sm:p-6 rounded-[24px] border-4 border-brand-dark flex items-center gap-4 group transition-all brutal-shadow cursor-default",
                   task.completed ? "bg-slate-100 opacity-60" : "bg-white"
                 )}
               >
                 <div 
                   className={cn(
-                    "transition-colors",
+                    "transition-colors shrink-0",
                     task.completed ? "text-brand-mint" : "text-slate-300"
                   )}
                 >
-                  {task.completed ? <CheckCircle2 size={32} strokeWidth={3} /> : <Circle size={32} strokeWidth={3} />}
+                  {task.completed ? <CheckCircle2 size={24} sm:size={32} strokeWidth={3} /> : <Circle size={24} sm:size={32} strokeWidth={3} />}
                 </div>
 
                 <span className={cn(
-                  "flex-1 text-xl font-bold text-brand-dark transition-all",
+                  "flex-1 text-base sm:text-xl font-bold text-brand-dark transition-all leading-tight",
                   task.completed && "line-through text-slate-400"
                 )}>
                   {task.text}
                 </span>
 
-                <div className="p-2 text-slate-200">
-                  <Trash2 size={24} />
+                <div className="p-1 sm:p-2 text-slate-300">
+                  <Trash2 size={20} sm:size={24} />
                 </div>
               </div>
             ))}

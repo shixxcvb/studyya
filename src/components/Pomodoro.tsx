@@ -46,32 +46,39 @@ export function Pomodoro() {
     : (timeLeft / (5 * 60)) * 100;
 
   return (
-    <div className="flex flex-col items-center justify-center space-y-12 h-full">
+    <div className="flex flex-col items-center justify-center space-y-8 sm:space-y-12 h-full py-4">
       <motion.div 
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        className="relative flex items-center justify-center brutal-card p-12 bg-white"
+        className="relative flex items-center justify-center brutal-card p-6 sm:p-12 bg-white"
       >
-        <svg className="w-64 h-64 transform -rotate-90">
+        <svg className="w-56 h-56 sm:w-64 sm:h-64 transform -rotate-90">
           <circle
-            cx="128"
-            cy="128"
-            r="120"
+            cx="112"
+            cy="112"
+            r="104"
+            sm-cx="128"
+            sm-cy="128"
+            sm-r="120"
             stroke="currentColor"
             strokeWidth="12"
             fill="transparent"
             className="text-slate-100"
           />
           <motion.circle
-            cx="128"
-            cy="128"
-            r="120"
+            cx="112"
+            cy="112"
+            r="104"
+            sm-cx="128"
+            sm-cy="128"
+            sm-r="120"
             stroke="currentColor"
             strokeWidth="12"
             fill="transparent"
-            strokeDasharray={753.98}
-            initial={{ strokeDashoffset: 753.98 }}
-            animate={{ strokeDashoffset: (progress / 100) * 753.98 }}
+            strokeDasharray={653.45}
+            sm-strokeDasharray={753.98}
+            initial={{ strokeDashoffset: 653.45 }}
+            animate={{ strokeDashoffset: (progress / 100) * 653.45 }}
             transition={{ duration: 1, ease: "linear" }}
             className={cn(
               "transition-colors duration-500",
@@ -84,34 +91,34 @@ export function Pomodoro() {
             key={timeLeft}
             initial={{ y: 5, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            className="text-6xl font-black tracking-tighter text-brand-dark"
+            className="text-5xl sm:text-6xl font-black tracking-tighter text-brand-dark"
           >
             {formatTime(timeLeft)}
           </motion.span>
-          <span className="text-sm font-black uppercase tracking-widest text-slate-400">
+          <span className="text-[10px] sm:text-sm font-black uppercase tracking-widest text-slate-400">
             {mode === 'work' ? 'CRUSH TIME' : 'CHILL ZONE'}
           </span>
         </div>
       </motion.div>
 
-      <div className="flex items-center space-x-6">
+      <div className="flex items-center space-x-4 sm:space-x-6">
         <button
-          className="w-16 h-16 rounded-2xl bg-white border-2 border-brand-dark brutal-shadow-sm text-brand-dark cursor-default flex items-center justify-center"
+          className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white border-2 border-brand-dark brutal-shadow-sm text-brand-dark cursor-default flex items-center justify-center"
         >
-          <RotateCcw size={28} />
+          <RotateCcw size={24} sm:size={28} />
         </button>
         <button
           className={cn(
-            "w-24 h-24 rounded-2xl text-white border-4 border-brand-dark flex items-center justify-center transition-all transform brutal-shadow cursor-default",
+            "w-20 h-20 sm:w-24 sm:h-24 rounded-2xl text-white border-4 border-brand-dark flex items-center justify-center transition-all transform brutal-shadow cursor-default",
             isActive ? "bg-brand-secondary" : "bg-brand-mint"
           )}
         >
-          {isActive ? <Pause size={48} fill="currentColor" /> : <Play size={48} className="ml-2" fill="currentColor" />}
+          {isActive ? <Pause size={36} sm:size={48} fill="currentColor" /> : <Play size={36} sm:size={48} className="ml-1 sm:ml-2" fill="currentColor" />}
         </button>
         <button
-          className="w-16 h-16 rounded-2xl bg-white border-2 border-brand-dark brutal-shadow-sm text-brand-dark cursor-default flex items-center justify-center"
+          className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white border-2 border-brand-dark brutal-shadow-sm text-brand-dark cursor-default flex items-center justify-center"
         >
-          {mode === 'work' ? <Coffee size={28} /> : <BookOpen size={28} />}
+          {mode === 'work' ? <Coffee size={24} sm:size={28} /> : <BookOpen size={24} sm:size={28} />}
         </button>
       </div>
 
