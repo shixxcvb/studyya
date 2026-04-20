@@ -625,7 +625,7 @@ export default function App() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
                 {[
                   { name: 'Romeo Selwyn Villar', role: 'CEO & Founder', bio: 'Visionary leader driving the mission to revolutionize student productivity.', color: 'bg-brand-mint', image: '/sel.jpg' },
-                  { name: 'Charlene Calamba', role: 'Chief Operating Officer', bio: 'The engine behind StudyYa, ensuring every gear turns perfectly for our users.', color: 'bg-brand-secondary', image: '/chao.jpg' },
+                  { name: 'Charlene Calamba', role: 'Chief Operating Officer', bio: 'The engine behind StudyYa, ensuring every gear turns perfectly for our users.', color: 'bg-brand-secondary', image: '/chaoo.jpg' },
                   { name: 'Alex Aparece', role: 'Chief Technology Officer', bio: 'The architect of our technology, building tools that make complex tasks feel simple.', color: 'bg-brand-blue', image: '/alex.jpg' }
                 ].map((member, idx) => (
                   <motion.div 
